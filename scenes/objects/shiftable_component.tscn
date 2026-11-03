@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b5isxf5odp3bf"]
+
+[ext_resource type="Script" uid="uid://diuwwihyfj6mb" path="res://scripts/objects/shiftable_component.gd" id="1_eyuxy"]
+
+[node name="ShiftableComponent" type="Node" unique_id=377114439]
+script = ExtResource("1_eyuxy")

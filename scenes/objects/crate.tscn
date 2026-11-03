@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cj3fe2w3thblh"]
+
+[ext_resource type="Texture2D" uid="uid://cojnhupasp60t" path="res://assets/kenmi/outdoor_decor/barrel.tres" id="1_ls5c6"]
+[ext_resource type="Script" uid="uid://diuwwihyfj6mb" path="res://scripts/objects/shiftable_component.gd" id="1_yourn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ls5c6"]
+size = Vector2(14, 6)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aji8h"]
+radius = 9.0
+
+[node name="Crate" type="StaticBody2D" unique_id=441278254]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=349440063]
+texture = ExtResource("1_ls5c6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=791296173]
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_ls5c6")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1043409940 groups=["shiftable"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1113480686]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_aji8h")
+
+[node name="ShiftableComponent" type="Node" parent="." unique_id=569648338]
+script = ExtResource("1_yourn")
+metadata/_custom_type_script = "uid://diuwwihyfj6mb"

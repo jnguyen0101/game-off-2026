@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://dtk1x6yb85c25"]
+
+[ext_resource type="Texture2D" uid="uid://8v11woodwkop" path="res://assets/kenmi/buildings/House_Decor/door.tres" id="1_aji8h"]
+[ext_resource type="Script" uid="uid://e4wdwehlfmm2" path="res://scripts/objects/door.gd" id="1_w0irj"]
+[ext_resource type="Script" uid="uid://diuwwihyfj6mb" path="res://scripts/objects/shiftable_component.gd" id="1_yar34"]
+[ext_resource type="Script" uid="uid://c1towhf3y0gf3" path="res://scripts/objects/shift_property.gd" id="2_xm0wp"]
+[ext_resource type="Resource" uid="uid://cvpoiiibfk0d4" path="res://resources/properties/locked.tres" id="3_aji8h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vedx6"]
+size = Vector2(16, 23)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gmlin"]
+size = Vector2(16, 23)
+
+[node name="Door" type="StaticBody2D" unique_id=1400748176]
+script = ExtResource("1_w0irj")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=887829659]
+texture = ExtResource("1_aji8h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1534992959]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_vedx6")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1677652961 groups=["shiftable"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1170658292]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_gmlin")
+
+[node name="ShiftableComponent" type="Node" parent="." unique_id=658701151]
+script = ExtResource("1_yar34")
+properties = Array[ExtResource("2_xm0wp")]([ExtResource("3_aji8h")])
+metadata/_custom_type_script = "uid://diuwwihyfj6mb"
