@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://bgcpp8sdw8oyl"]
+
+[ext_resource type="Texture2D" uid="uid://ds18xkh2beum3" path="res://assets/kenmi/buildings/House_Decor/Furniture_Other.png" id="1_pdtxv"]
+
+[resource]
+atlas = ExtResource("1_pdtxv")
+region = Rect2(160, 24, 32, 24)

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://hys5kbmkvyg1" path="res://assets/kenmi/buildings/Houses_Interiors/Wood_Floor_Tiles.png" id="1_v45ci"]
 [ext_resource type="PackedScene" uid="uid://cj3fe2w3thblh" path="res://scenes/objects/crate.tscn" id="2_fr1um"]
 [ext_resource type="PackedScene" uid="uid://dtk1x6yb85c25" path="res://scenes/objects/door.tscn" id="3_v45ci"]
+[ext_resource type="PackedScene" path="res://scenes/objects/dialogue_interactable.tscn" id="5_dialogue"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_48ne7"]
 texture = ExtResource("1_v45ci")
@@ -85,6 +86,22 @@ tile_set = SubResource("TileSet_fr1um")
 [node name="EnvironmentalObjects" type="Node2D" parent="." unique_id=812422291]
 y_sort_enabled = true
 position = Vector2(160, 90)
+
+[node name="Resume" parent="EnvironmentalObjects" unique_id=492304144 instance=ExtResource("5_dialogue")]
+position = Vector2(-28, 0)
+interaction_prompt = "Read resume"
+lines = Array[String](["Application: Thieves' Guild.
+Experience: None. Lockpicking: None.", "Special skills: Enthusiastic. Very enthusiastic. And enthusiastic.
+References: My mom.", "It's a start. Now I just need to convince the guild head."])
+
+[node name="GuildHead" parent="EnvironmentalObjects" unique_id=1205007721 instance=ExtResource("5_dialogue")]
+position = Vector2(36, -24)
+interaction_prompt = "Talk to guild head"
+lines = Array[String](["No experience. No lockpicking.
+You've written 'enthusiastic' three times.", "Well, everyone starts somewhere, I suppose.
+One chance. Let's see what you can do.", "There's a silver seal in the practice room.
+Get past the locked door and bring it to me.", "No key, no broken door, and no excuses.
+Consider this your interview."])
 
 [node name="Door" parent="EnvironmentalObjects" unique_id=1400748176 instance=ExtResource("3_v45ci")]
 position = Vector2(84, 66)

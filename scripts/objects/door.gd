@@ -1,11 +1,20 @@
 extends StaticBody2D
 
 
-# Called when the node enters the scene tree for the first time.
+@onready var shiftable: ShiftableComponent = $ShiftableComponent
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+
+
 func _ready() -> void:
-	pass # Replace with function body.
+	shiftable.properties_changed.connect(_update_locked_state)
+	_update_locked_state()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _update_locked_state() -> void:
+	var locked := false
+	for property in shiftable.properties:
+		if property != null and property.property_name == "LOCKED":
+			locked = true
+			break
+
+	collision_shape.set_deferred("disabled", not locked)

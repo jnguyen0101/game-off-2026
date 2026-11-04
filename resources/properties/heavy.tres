@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ShiftProperty" format=3 uid="uid://5xj3acw0sn6j"]
+
+[ext_resource type="Script" uid="uid://c1towhf3y0gf3" path="res://scripts/objects/shift_property.gd" id="1_7b14l"]
+
+[resource]
+script = ExtResource("1_7b14l")
+property_name = "HEAVY"
+description = "Makes something difficult to move or lift."
+metadata/_custom_type_script = "uid://c1towhf3y0gf3"
