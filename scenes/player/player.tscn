@@ -4,7 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://c3l3treylim8o" path="res://assets/kenmi/player/thief.png" id="2_gmlin"]
 [ext_resource type="Shader" uid="uid://cljyeh7fdjp2f" path="res://shaders/shift_vision.gdshader" id="3_shift_filter"]
 [ext_resource type="Script" uid="uid://cucta0erkmqrq" path="res://scripts/player/shift_vision_filter.gd" id="4_shift_filter"]
-[ext_resource type="PackedScene" path="res://scenes/ui/dialogue_box.tscn" id="5_dialogue"]
+[ext_resource type="FontFile" uid="uid://db21mhb185uok" path="res://assets/fonts/PixeloidSans-lxa3y.ttf" id="5_75vfm"]
+[ext_resource type="PackedScene" uid="uid://bjdgr75n2dkm8" path="res://scenes/ui/dialogue_box.tscn" id="5_dialogue"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lvxji"]
 atlas = ExtResource("2_gmlin")
@@ -343,9 +344,13 @@ layer = 2
 offset_left = 8.0
 offset_top = 6.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 1
-theme_override_constants/shadow_offset_y = 1
-theme_override_font_sizes/font_size = 10
+theme_override_constants/line_spacing = 3
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 1
+theme_override_constants/shadow_outline_size = 1
+theme_override_fonts/font = ExtResource("5_75vfm")
+theme_override_font_sizes/font_size = 8
 text = "Carrying: Nothing"
 
 [node name="Feedback" type="Label" parent="ShiftHUD" unique_id=2027278231]
@@ -354,9 +359,11 @@ offset_left = 8.0
 offset_top = 22.0
 theme_override_colors/font_color = Color(1, 0.85, 0.45, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 1
-theme_override_constants/shadow_offset_y = 1
-theme_override_font_sizes/font_size = 10
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("5_75vfm")
+theme_override_font_sizes/font_size = 8
 
 [node name="PropertyPanel" type="ScrollContainer" parent="ShiftHUD" unique_id=1047399324]
 visible = false
@@ -388,14 +395,15 @@ offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 1
-theme_override_constants/shadow_offset_y = 1
-theme_override_font_sizes/font_size = 10
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("5_75vfm")
+theme_override_font_sizes/font_size = 8
 horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="DialogueBox" parent="ShiftHUD" unique_id=1560004808 instance=ExtResource("5_dialogue")]
-anchors_preset = 12
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

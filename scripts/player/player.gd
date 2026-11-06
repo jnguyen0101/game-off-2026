@@ -23,7 +23,7 @@ func get_dialogue_target() -> Area2D:
 	var nearest: Area2D = null
 	var best_distance := INF
 	for area in $Area2D.get_overlapping_areas():
-		if area.is_in_group("dialogue_interactable") and not area.lines.is_empty():
+		if area.is_in_group("dialogue_interactable") and area.can_interact():
 			var distance := global_position.distance_squared_to(area.global_position)
 			if distance < best_distance:
 				nearest = area
@@ -39,7 +39,11 @@ func start_dialogue(target: Area2D) -> void:
 	dialogue_active = true
 	velocity = Vector2.ZERO
 	update_animation(Vector2.ZERO)
-	dialogue_box.start(target.speaker_name, target.lines)
+	dialogue_box.start(
+		target.speaker_name if target.is_character else "",
+		target.lines,
+		target.portrait if target.is_character else null
+	)
 	update_shift_prompts()
 
 
@@ -119,7 +123,7 @@ func update_property_list() -> void:
 			property_panel.ensure_control_visible(row)
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if dialogue_active:
 		return
 	var direction := Input.get_vector(
@@ -198,7 +202,7 @@ func _process(_delta: float) -> void:
 	elif not Input.is_action_pressed("shift_mode") and Input.is_action_just_pressed("interact"):
 		var target := get_dialogue_target()
 		if target != null:
-			start_dialogue(target)
+			target.interact(self)
 	update_shift_prompts()
 
 

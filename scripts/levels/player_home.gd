@@ -3,9 +3,10 @@ extends Node2D
 var resume_read: bool = false
 
 @onready var player = %Player
-@onready var resume = $Furniture/Resume
-@onready var front_door = $Furniture/FrontDoor
-@onready var objective: Label = $HomeHUD/Objective
+@onready var resume = %Resume
+@onready var front_door = %FrontDoor
+@onready var objective: Label = %Objective
+@onready var bed_thought = %BedThought
 
 
 func _ready() -> void:
@@ -15,7 +16,7 @@ func _ready() -> void:
 
 
 func _start_morning() -> void:
-	player.start_dialogue($Furniture/BedThought)
+	player.start_dialogue(bed_thought)
 
 
 func _on_resume_read() -> void:
@@ -28,5 +29,4 @@ func _on_resume_read() -> void:
 func _on_front_door_finished() -> void:
 	if not resume_read:
 		return
-	# Temporary destination until the town and guild hall have their own maps.
 	get_tree().change_scene_to_file.call_deferred("res://scenes/levels/test_level.tscn")

@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://bk55gsqqnl7go"]
+
+[ext_resource type="Texture2D" uid="uid://df2cbscj2dap6" path="res://assets/kenmi/buildings/House_Decor/Standing_Lamps.png" id="1_ifq7b"]
+
+[resource]
+atlas = ExtResource("1_ifq7b")
+region = Rect2(0, 128, 16, 32)

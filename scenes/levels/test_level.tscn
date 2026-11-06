@@ -97,6 +97,8 @@ References: My mom.", "It's a start. Now I just need to convince the guild head.
 [node name="GuildHead" parent="EnvironmentalObjects" unique_id=1205007721 instance=ExtResource("5_dialogue")]
 position = Vector2(36, -24)
 interaction_prompt = "Talk to guild head"
+is_character = true
+speaker_name = "Guild Head"
 lines = Array[String](["No experience. No lockpicking.
 You've written 'enthusiastic' three times.", "Well, everyone starts somewhere, I suppose.
 One chance. Let's see what you can do.", "There's a silver seal in the practice room.

@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://ctohfp6a4h4x"]
+
+[ext_resource type="Texture2D" uid="uid://bn40qvm66ki8b" path="res://assets/kenmi/buildings/House_Decor/Chairs.png" id="1_ilcwj"]
+
+[resource]
+atlas = ExtResource("1_ilcwj")
+region = Rect2(48, 72, 16, 24)
