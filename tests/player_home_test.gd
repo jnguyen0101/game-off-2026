@@ -32,9 +32,8 @@ func run_test() -> void:
 	assert(home.front_door.interaction_prompt == "Leave for the guild", "The door must offer to leave")
 	assert(home.front_door.lines[0].begins_with("Resume ready."), "The departure dialogue must update")
 	home._on_front_door_finished()
-	await process_frame
-	await process_frame
-	assert(current_scene.scene_file_path == "res://scenes/levels/test_level.tscn", "Leaving home must load the temporary guild destination")
+	await root.get_node("SceneTransition").transition_finished
+	assert(current_scene.scene_file_path == "res://scenes/levels/town.tscn", "Leaving home must load the town")
 	current_scene.queue_free()
 	print("Player home checks passed")
 	quit()

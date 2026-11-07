@@ -15,6 +15,11 @@ run/main_scene="res://scenes/levels/player_home.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameProgress="*res://scripts/game_progress.gd"
+SceneTransition="*res://scripts/scene_transition.gd"
+
 [display]
 
 window/size/viewport_width=320

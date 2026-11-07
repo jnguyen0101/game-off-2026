@@ -695,7 +695,7 @@ texture = SubResource("LampGlowTexture")
 [node name="Light" type="PointLight2D" parent="Furniture/Bedroom/Lamp/Interaction" unique_id=1626201031]
 visible = false
 position = Vector2(0, -8)
-color = Color(1, 0.8, 0.5, 1)
+color = Color(0.9999998, 0.8444181, 0.6195752, 1)
 energy = 0.35
 blend_mode = 1
 texture = SubResource("LampGlowTexture")
@@ -740,6 +740,10 @@ texture = SubResource("DoorTexture")
 unique_name_in_owner = true
 position = Vector2(64, 63)
 metadata/_edit_lock_ = true
+
+[node name="EntranceSpawn" type="Marker2D" parent="." unique_id=1590094610]
+unique_name_in_owner = true
+position = Vector2(236, 135)
 
 [node name="HomeHUD" type="CanvasLayer" parent="." unique_id=898501222]
 layer = 3
