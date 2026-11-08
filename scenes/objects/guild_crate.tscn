@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dwodadfajc0mj"]
+
+[ext_resource type="Script" uid="uid://cnq85bgldpeca" path="res://scripts/objects/guild_crate.gd" id="script"]
+[ext_resource type="Script" uid="uid://diuwwihyfj6mb" path="res://scripts/objects/shiftable_component.gd" id="shiftable"]
+[ext_resource type="Texture2D" uid="uid://cf1ios7na381e" path="res://assets/kenmi/outdoor_decor/Outdoor_Decor_Animations/Break_Animations/Crate_Anim.png" id="texture"]
+
+[sub_resource type="RectangleShape2D" id="body"]
+size = Vector2(14, 7.5)
+
+[sub_resource type="CircleShape2D" id="range"]
+radius = 8.0
+
+[node name="Wooden Crate" type="StaticBody2D" unique_id=1967128227]
+script = ExtResource("script")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=772864031]
+position = Vector2(0, -4)
+texture = ExtResource("texture")
+hframes = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1475819295]
+visible = false
+position = Vector2(0, 0.25)
+shape = SubResource("body")
+
+[node name="ShiftableComponent" type="Node" parent="." unique_id=2098870106]
+script = ExtResource("shiftable")
+
+[node name="ShiftArea" type="Area2D" parent="." unique_id=279608042 groups=["shiftable"]]
+position = Vector2(0, -3)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShiftArea" unique_id=1889809260]
+visible = false
+shape = SubResource("range")

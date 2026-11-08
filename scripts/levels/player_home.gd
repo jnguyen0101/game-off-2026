@@ -10,7 +10,8 @@ var resume_read: bool = false
 
 
 func _ready() -> void:
-	resume.dialogue_finished.connect(_on_resume_read)
+	resume.activated.connect(_open_resume)
+	%ResumeDocument.closed.connect(_on_resume_closed)
 	front_door.dialogue_finished.connect(_on_front_door_finished)
 	if GameProgress.resume_read:
 		_on_resume_read()
@@ -30,9 +31,30 @@ func _start_morning() -> void:
 func _on_resume_read() -> void:
 	resume_read = true
 	GameProgress.resume_read = true
-	objective.text = "Head to the Thieves' Guild"
+	resume.hide()
+	resume.remove_from_group("dialogue_interactable")
+	resume.remove_from_group("interactable")
+	resume.get_node("CollisionShape2D").set_deferred("disabled", true)
+	objective.text = GameProgress.get_objective()
 	front_door.interaction_prompt = "Leave for the guild"
-	front_door.lines.assign(["Resume ready. Time to make a very convincing first impression."])
+	front_door.lines.assign(["Time to make a very convincing first impression."])
+	player.update_interaction_prompts()
+
+
+func _open_resume() -> void:
+	if resume_read:
+		return
+	player.exit_shift_mode()
+	player.velocity = Vector2.ZERO
+	player.update_animation(Vector2.ZERO)
+	%ResumeDocument.open_document()
+
+
+func _on_resume_closed() -> void:
+	if resume_read:
+		return
+	_on_resume_read()
+	player.start_dialogue(%ResumePickupThought)
 
 
 func _on_front_door_finished() -> void:

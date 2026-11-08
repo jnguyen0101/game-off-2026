@@ -3,8 +3,9 @@ extends CharacterBody2D
 @export var move_speed: float = 70.0
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var shift_prompt: Label = $ShiftHUD/ShiftPrompt
-@onready var carried_label: Label = $ShiftHUD/CarriedProperty
+@onready var interaction_prompt: Label = $ShiftHUD/InteractionPromptLayout/InteractionPrompt
+@onready var property_slot: PanelContainer = $ShiftHUD/PropertySlot
+@onready var carried_icon: TextureRect = $ShiftHUD/PropertySlot/Icon
 @onready var feedback_label: Label = $ShiftHUD/Feedback
 @onready var property_panel: ScrollContainer = $ShiftHUD/PropertyPanel
 @onready var property_list: VBoxContainer = $ShiftHUD/PropertyPanel/PropertyList
@@ -16,14 +17,16 @@ var dialogue_source: Area2D = null
 
 
 func _ready() -> void:
+	carried_property = GameProgress.carried_property
 	dialogue_box.finished.connect(_on_dialogue_finished)
+	update_interaction_prompts()
 
 
 func get_dialogue_target() -> Area2D:
 	var nearest: Area2D = null
 	var best_distance := INF
 	for area in $Area2D.get_overlapping_areas():
-		if area.is_in_group("dialogue_interactable") and area.can_interact():
+		if (area.is_in_group("dialogue_interactable") or area.is_in_group("interactable")) and area.can_interact():
 			var distance := global_position.distance_squared_to(area.global_position)
 			if distance < best_distance:
 				nearest = area
@@ -39,12 +42,16 @@ func start_dialogue(target: Area2D) -> void:
 	dialogue_active = true
 	velocity = Vector2.ZERO
 	update_animation(Vector2.ZERO)
+	var speakers: Array[String] = []
+	if target.is_character:
+		speakers.assign(target.page_speakers)
 	dialogue_box.start(
 		target.speaker_name if target.is_character else "",
 		target.lines,
-		target.portrait if target.is_character else null
+		target.portrait if target.is_character else null,
+		speakers
 	)
-	update_shift_prompts()
+	update_interaction_prompts()
 
 
 func _on_dialogue_finished() -> void:
@@ -53,7 +60,7 @@ func _on_dialogue_finished() -> void:
 	dialogue_source = null
 	if is_instance_valid(source):
 		source.dialogue_finished.emit()
-	update_shift_prompts()
+	update_interaction_prompts()
 
 var last_direction := Vector2.DOWN
 var nearby_object: Node = null
@@ -81,7 +88,7 @@ func _input(event: InputEvent) -> void:
 			sync_property_selection(shiftable)
 			if not visible_properties.is_empty():
 				selected_property_index = wrapi(selected_property_index + step, 0, visible_properties.size())
-				update_shift_prompts()
+				update_interaction_prompts()
 				get_viewport().set_input_as_handled()
 
 
@@ -108,7 +115,8 @@ func update_property_list() -> void:
 
 	while property_list.get_child_count() < visible_properties.size():
 		var row := Label.new()
-		row.add_theme_font_size_override("font_size", 10)
+		row.add_theme_font_override("font", feedback_label.get_theme_font("font"))
+		row.add_theme_font_size_override("font_size", feedback_label.get_theme_font_size("font_size"))
 		row.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		property_list.add_child(row)
 	for index in property_list.get_child_count():
@@ -121,6 +129,20 @@ func update_property_list() -> void:
 		row.modulate = Color(1.0, 0.85, 0.45) if selected else Color.WHITE
 		if selected and property_panel.visible:
 			property_panel.ensure_control_visible(row)
+	if property_panel.visible and is_instance_valid(nearby_object) and nearby_object is Node2D:
+		var panel_width := 32.0
+		for property in visible_properties:
+			panel_width = maxf(panel_width, feedback_label.get_theme_font("font").get_string_size(
+				"> " + property.property_name, HORIZONTAL_ALIGNMENT_LEFT, -1,
+				feedback_label.get_theme_font_size("font_size")
+			).x + 4.0)
+		var screen_size := get_viewport_rect().size
+		property_panel.size = Vector2(minf(panel_width, screen_size.x - 8.0), minf(visible_properties.size() * 14.0, 56.0))
+		var target_position: Vector2 = nearby_object.get_global_transform_with_canvas().origin
+		property_panel.position = Vector2(
+			clampf(target_position.x - property_panel.size.x / 2.0, 4.0, screen_size.x - property_panel.size.x - 4.0),
+			clampf(target_position.y - 24.0 - property_panel.size.y, 4.0, screen_size.y - property_panel.size.y - 4.0)
+		).round()
 
 
 func _physics_process(_delta: float) -> void:
@@ -184,7 +206,7 @@ func _on_area_2d_area_exited(area: Area2D) -> void:
 	if area.get_parent() == nearby_object:
 		nearby_object = null
 		exit_shift_mode()
-		update_shift_prompts()
+		update_interaction_prompts()
 
 func _process(_delta: float) -> void:
 	if dialogue_active:
@@ -203,44 +225,66 @@ func _process(_delta: float) -> void:
 		var target := get_dialogue_target()
 		if target != null:
 			target.interact(self)
-	update_shift_prompts()
+	update_interaction_prompts()
 
 
-func update_shift_prompts() -> void:
-	carried_label.text = "Carrying: " + (
-		carried_property.property_name if carried_property != null else "Nothing"
-	)
+func update_interaction_prompts() -> void:
+	_update_interaction_prompt_contents()
+	interaction_prompt.visible = not dialogue_active and not interaction_prompt.text.is_empty()
+	if interaction_prompt.visible:
+		var screen_size := get_viewport_rect().size
+		var available_width := screen_size.x - 50.0
+		var text_width := interaction_prompt.get_theme_font("font").get_string_size(
+			interaction_prompt.text, HORIZONTAL_ALIGNMENT_LEFT, -1,
+			interaction_prompt.get_theme_font_size("font_size")
+		).x
+		# The bottom-aligned container positions the label after wrapping is resolved.
+		interaction_prompt.custom_minimum_size = Vector2(minf(text_width + 12.0, available_width), 0)
+
+
+
+func _update_interaction_prompt_contents() -> void:
+	property_slot.visible = GameProgress.shift_unlocked
+	if not GameProgress.shift_unlocked:
+		if shift_mode_active:
+			exit_shift_mode()
+		property_panel.hide()
+		feedback_label.hide()
+		var target := get_dialogue_target()
+		interaction_prompt.text = "[E] " + target.interaction_prompt if target != null and not dialogue_active else ""
+		return
+	carried_icon.texture = carried_property.icon if carried_property != null else null
 	feedback_label.visible = Time.get_ticks_msec() < feedback_until
 	var shiftable := get_nearby_shiftable()
 	sync_property_selection(shiftable)
 	update_property_list()
-	shift_prompt.text = ""
+	interaction_prompt.text = ""
 	if dialogue_active:
 		property_panel.hide()
 		return
 	var dialogue_target := get_dialogue_target()
 	if not shift_mode_active and dialogue_target != null:
-		shift_prompt.text = "[E] " + dialogue_target.interaction_prompt
+		interaction_prompt.text = "[E] " + dialogue_target.interaction_prompt
 		if shiftable != null:
-			shift_prompt.text += " | Hold Shift to use Shift Vision"
+			interaction_prompt.text += " | Hold Shift to use Shift Vision"
 		return
 	if shiftable == null:
 		if shift_mode_active:
-			shift_prompt.text = "Move near an object | Release Shift to exit"
+			interaction_prompt.text = "Move near an object | Release Shift to exit"
 		return
 	if not shift_mode_active:
-		shift_prompt.text = "Hold Shift to use Shift Vision"
+		interaction_prompt.text = "Hold Shift to use Shift Vision"
 	elif carried_property != null:
 		if shiftable.has_property(carried_property):
-			shift_prompt.text = "%s already has %s" % [nearby_object.name, carried_property.property_name]
+			interaction_prompt.text = "%s already has %s" % [nearby_object.name, carried_property.property_name]
 		else:
-			shift_prompt.text = "[E] Place %s on %s" % [carried_property.property_name, nearby_object.name]
+			interaction_prompt.text = "[E] Place %s on %s" % [carried_property.property_name, nearby_object.name]
 	elif not visible_properties.is_empty():
-		shift_prompt.text = "[E] Steal %s from %s" % [visible_properties[selected_property_index].property_name, nearby_object.name]
+		interaction_prompt.text = "[E] Steal %s from %s" % [visible_properties[selected_property_index].property_name, nearby_object.name]
 		if visible_properties.size() > 1:
-			shift_prompt.text += " | Scroll to choose"
+			interaction_prompt.text += " | Scroll to choose"
 	else:
-		shift_prompt.text = "%s has no property to steal" % nearby_object.name
+		interaction_prompt.text = "%s has no property to steal" % nearby_object.name
 
 
 func show_shift_feedback(message: String) -> void:
@@ -248,7 +292,7 @@ func show_shift_feedback(message: String) -> void:
 	feedback_until = Time.get_ticks_msec() + 2000
 		
 func enter_shift_mode() -> void:
-	if dialogue_active or nearby_object == null:
+	if not GameProgress.shift_unlocked or dialogue_active or nearby_object == null:
 		return
 
 	shift_mode_active = true
@@ -262,6 +306,7 @@ func exit_shift_mode() -> void:
 	shift_filter.set_active(false)
 	
 func _exit_tree() -> void:
+	GameProgress.carried_property = carried_property
 	Engine.time_scale = 1.0
 
 func get_nearby_shiftable() -> ShiftableComponent:
@@ -271,6 +316,8 @@ func get_nearby_shiftable() -> ShiftableComponent:
 	return nearby_object.get_node_or_null("ShiftableComponent")
 	
 func transfer_property() -> void:
+	if not GameProgress.shift_unlocked:
+		return
 	var shiftable := get_nearby_shiftable()
 	
 	if shiftable == null:
@@ -284,7 +331,7 @@ func transfer_property() -> void:
 		carried_property = visible_properties[selected_property_index]
 		shiftable.remove_property(carried_property)
 		
-		show_shift_feedback("Stole %s" % carried_property.property_name)
+		show_shift_feedback("%s picked up" % carried_property.property_name)
 		
 	else:
 		if shiftable.has_property(carried_property):

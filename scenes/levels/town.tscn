@@ -20,7 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://bwwwskj317e78" path="res://assets/kenmi/tiles/Bridge/Bridge_Stone_Horizontal.png" id="bridge"]
 [ext_resource type="Texture2D" uid="uid://bf0ysnsuwkw2m" path="res://assets/kenmi/buildings/Buildings/Houses/Wood/House_1_Wood_Base_Red.png" id="cottage"]
 [ext_resource type="PackedScene" uid="uid://beku6g27esqt5" path="res://scenes/objects/dialogue_interactable.tscn" id="dialogue"]
-[ext_resource type="FontFile" uid="uid://db21mhb185uok" path="res://assets/fonts/PixeloidSans-lxa3y.ttf" id="font"]
+[ext_resource type="FontFile" uid="uid://cx6m0j1w52jcs" path="res://assets/fonts/cairopixel.medium.ttf" id="font"]
 [ext_resource type="Texture2D" uid="uid://vgns8t34gl62" path="res://assets/kenmi/outdoor_decor/Outdoor_Decor_Animations/Other_Animations/Fountain_Anim.png" id="fountain"]
 [ext_resource type="Texture2D" uid="uid://nej1yjlum06e" path="res://assets/kenmi/tiles/Grass/Grass_1_Middle.png" id="grass"]
 [ext_resource type="Script" uid="uid://crxid8ttt0qmn" path="res://scripts/objects/home_entrance.gd" id="home_entrance"]
@@ -640,7 +640,7 @@ size = Vector2(64, 77)
 size = Vector2(48, 63)
 
 [sub_resource type="RectangleShape2D" id="BuildingShape"]
-size = Vector2(64, 69.5)
+size = Vector2(64, 55.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a6o5w"]
 size = Vector2(68, 94)
@@ -651,30 +651,45 @@ size = Vector2(218, 78)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w8he6"]
 size = Vector2(10, 18)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_r756v"]
-size = Vector2(160, 56)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1o5bq"]
+size = Vector2(64, 55.75)
 
-[sub_resource type="RectangleShape2D" id="SmallBuildingShape"]
-size = Vector2(80, 49)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r756v"]
+size = Vector2(160, 54)
+
+[sub_resource type="RectangleShape2D" id="WestCottageShape"]
+size = Vector2(64, 30)
+
+[sub_resource type="RectangleShape2D" id="EastCottageShape"]
+size = Vector2(80, 28)
 
 [sub_resource type="AtlasTexture" id="Stall0"]
 atlas = ExtResource("stalls")
 region = Rect2(0, 0, 48, 48)
 
-[sub_resource type="RectangleShape2D" id="StallShape"]
-size = Vector2(40, 9)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x7ifl"]
+size = Vector2(40, 11)
 
 [sub_resource type="AtlasTexture" id="Stall1"]
 atlas = ExtResource("stalls")
 region = Rect2(48, 0, 48, 48)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hng26"]
+size = Vector2(40, 11)
+
 [sub_resource type="AtlasTexture" id="Stall2"]
 atlas = ExtResource("stalls")
 region = Rect2(96, 0, 48, 48)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mmfyj"]
+size = Vector2(40, 11)
+
 [sub_resource type="AtlasTexture" id="Stall3"]
 atlas = ExtResource("stalls")
 region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="RectangleShape2D" id="StallShape"]
+size = Vector2(40, 11)
 
 [sub_resource type="AtlasTexture" id="Fountain"]
 atlas = ExtResource("fountain")
@@ -752,7 +767,7 @@ atlas = ExtResource("readable_sign")
 region = Rect2(0, 152, 32, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ugpp"]
-size = Vector2(9, 6)
+size = Vector2(9, 7)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_x7ifl"]
 load_path = "res://.godot/imported/Signs.png-4f9b85d73d5e4369e2be8f09e77a0e0c.ctex"
@@ -762,7 +777,7 @@ atlas = SubResource("CompressedTexture2D_x7ifl")
 region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3flom"]
-size = Vector2(4, 4)
+size = Vector2(4, 5)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xoobb"]
 texture = ExtResource("bridge")
@@ -989,7 +1004,7 @@ texture = ExtResource("12_fi7ac")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Inn" unique_id=1836732232]
 visible = false
-position = Vector2(-16, -13.5)
+position = Vector2(-16, 17)
 shape = SubResource("BuildingShape")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="World/Inn" unique_id=1166647884]
@@ -1008,11 +1023,28 @@ position = Vector2(-105, -3)
 shape = SubResource("RectangleShape2D_w8he6")
 
 [node name="Guild" type="StaticBody2D" parent="World" unique_id=2031399809]
+y_sort_enabled = true
 position = Vector2(790, 396)
 
 [node name="Sprite2D" type="Sprite2D" parent="World/Guild" unique_id=537759004]
-position = Vector2(0, -44)
 texture = ExtResource("13_ycpv2")
+offset = Vector2(0, -44)
+region_enabled = true
+region_rect = Rect2(64, 0, 64, 128)
+
+[node name="WestWing" type="Sprite2D" parent="World/Guild" unique_id=328831171]
+position = Vector2(-64, -14)
+texture = ExtResource("13_ycpv2")
+offset = Vector2(0, -30)
+region_enabled = true
+region_rect = Rect2(0, 0, 64, 128)
+
+[node name="EastWing" type="Sprite2D" parent="World/Guild" unique_id=1126726834]
+position = Vector2(64, -14)
+texture = ExtResource("13_ycpv2")
+offset = Vector2(0, -30)
+region_enabled = true
+region_rect = Rect2(128, 0, 64, 128)
 
 [node name="GuildEntrance" parent="World/Guild" unique_id=171918190 instance=ExtResource("dialogue")]
 unique_name_in_owner = true
@@ -1026,84 +1058,84 @@ position = Vector2(-8, 7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Guild" unique_id=706372087]
 visible = false
-position = Vector2(0, -30.75)
-shape = SubResource("BuildingShape")
+position = Vector2(0, -22.875)
+shape = SubResource("RectangleShape2D_1o5bq")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="World/Guild" unique_id=511615799]
 visible = false
-position = Vector2(0, -38)
+position = Vector2(0, -36)
 shape = SubResource("RectangleShape2D_r756v")
 
 [node name="WestCottage" type="StaticBody2D" parent="World" unique_id=1898058921]
-position = Vector2(180, 586)
+position = Vector2(180, 587)
 
 [node name="Sprite2D" type="Sprite2D" parent="World/WestCottage" unique_id=880603956]
-position = Vector2(0, -44)
+position = Vector2(0, -45)
 texture = ExtResource("cottage")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/WestCottage" unique_id=387786939]
 visible = false
-position = Vector2(0, -16)
-shape = SubResource("SmallBuildingShape")
+position = Vector2(0, -10)
+shape = SubResource("WestCottageShape")
 
 [node name="EastCottage" type="StaticBody2D" parent="World" unique_id=2119468466]
-position = Vector2(817, 603)
+position = Vector2(817, 589)
 
 [node name="Sprite2D" type="Sprite2D" parent="World/EastCottage" unique_id=1857583169]
-position = Vector2(0, -44)
+position = Vector2(0, -30)
 texture = ExtResource("15_fi7ac")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/EastCottage" unique_id=956910158]
 visible = false
-position = Vector2(0, -34.5)
-shape = SubResource("SmallBuildingShape")
+position = Vector2(0, -9)
+shape = SubResource("EastCottageShape")
 
 [node name="MarketStall1" type="StaticBody2D" parent="World" unique_id=1203704172]
-position = Vector2(436, 439)
+position = Vector2(436, 433)
 
 [node name="Sprite2D" type="Sprite2D" parent="World/MarketStall1" unique_id=1463353847]
-position = Vector2(0, -20)
+position = Vector2(0, -17)
 texture = SubResource("Stall0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/MarketStall1" unique_id=128172590]
 visible = false
-position = Vector2(0, -3)
-shape = SubResource("StallShape")
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_x7ifl")
 
 [node name="MarketStall2" type="StaticBody2D" parent="World" unique_id=634178160]
-position = Vector2(614, 450)
+position = Vector2(614, 447)
 
 [node name="Sprite2D" type="Sprite2D" parent="World/MarketStall2" unique_id=2113604735]
-position = Vector2(0, -20)
+position = Vector2(0, -17)
 texture = SubResource("Stall1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/MarketStall2" unique_id=348300801]
 visible = false
-position = Vector2(0, -2.6875)
-shape = SubResource("StallShape")
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_hng26")
 
 [node name="MarketStall3" type="StaticBody2D" parent="World" unique_id=282000868]
-position = Vector2(432, 568)
+position = Vector2(432, 565)
 
 [node name="Sprite2D" type="Sprite2D" parent="World/MarketStall3" unique_id=1412886094]
-position = Vector2(0, -20)
+position = Vector2(0, -17)
 texture = SubResource("Stall2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/MarketStall3" unique_id=172881752]
 visible = false
-position = Vector2(0, -2.5)
-shape = SubResource("StallShape")
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_mmfyj")
 
 [node name="MarketStall4" type="StaticBody2D" parent="World" unique_id=204445885]
-position = Vector2(596, 578)
+position = Vector2(596, 575)
 
 [node name="Sprite2D" type="Sprite2D" parent="World/MarketStall4" unique_id=1620134090]
-position = Vector2(0, -20)
+position = Vector2(0, -17)
 texture = SubResource("Stall3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/MarketStall4" unique_id=963375657]
 visible = false
-position = Vector2(0, -2.5)
+position = Vector2(0, 0.5)
 shape = SubResource("StallShape")
 
 [node name="MarketFountain" type="StaticBody2D" parent="World" unique_id=1458802847]
@@ -1122,11 +1154,6 @@ visible = false
 position = Vector2(0, -5)
 scale = Vector2(2, 2)
 polygon = PackedVector2Array(2.5, 7, -2.5, 7, -7, 6.5, -8, 3.5, -8, -1.5, -6.5, -3.5, 0, -4, 6.5, -3.5, 8, -1.5, 8, 3.5, 7, 6.5)
-
-[node name="GateNotice" parent="World" unique_id=607841821 instance=ExtResource("dialogue")]
-position = Vector2(520, 756)
-interaction_prompt = "Read gate notice"
-lines = Array[String](["South Gate. The road beyond leads out of town."])
 
 [node name="Oak00" type="StaticBody2D" parent="World" unique_id=1296376167]
 position = Vector2(83, 31)
@@ -1147,22 +1174,28 @@ lines = Array[String](["The Wayward Pick Inn"])
 position = Vector2(-7, -16)
 texture = SubResource("ReadableSignTexture")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="World/InnSign" unique_id=1652902882]
+[node name="StaticBody2D" type="StaticBody2D" parent="World/InnSign" unique_id=1440533459]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="World/InnSign/StaticBody2D" unique_id=1652902882]
 visible = false
-position = Vector2(0.5, 0)
+position = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_7ugpp")
 
 [node name="GuildSign" parent="World" unique_id=450893226 instance=ExtResource("dialogue")]
-position = Vector2(815, 403)
+position = Vector2(815, 399)
 interaction_prompt = "Read guild sign"
 lines = Array[String](["The Thieves' Guild"])
 
 [node name="Sprite2D" type="Sprite2D" parent="World/GuildSign" unique_id=959677930]
-position = Vector2(0, -5)
+position = Vector2(0, -1)
 texture = SubResource("AtlasTexture_hng26")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="World/GuildSign" unique_id=886733491]
+[node name="StaticBody2D" type="StaticBody2D" parent="World/GuildSign" unique_id=1228478779]
+position = Vector2(0, 4)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="World/GuildSign/StaticBody2D" unique_id=886733491]
 visible = false
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_3flom")
 
 [node name="Player" parent="World" unique_id=1864654766 instance=ExtResource("player")]
@@ -1183,6 +1216,7 @@ tile_map_data = PackedByteArray("AAAEAB4AAQALAAAAAAADAB4AAQAKAAAAAAABABsAAQAEAAA
 tile_set = SubResource("TileSet_sn8xv")
 
 [node name="Boundaries" type="StaticBody2D" parent="." unique_id=1560394276]
+visible = false
 
 [node name="Top" type="CollisionShape2D" parent="Boundaries" unique_id=1266660381]
 position = Vector2(481, -72.375)
@@ -1224,7 +1258,7 @@ theme_override_colors/font_color = Color(1, 0.85, 0.45, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
-theme_override_constants/outline_size = 1
+theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("font")
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 12
 horizontal_alignment = 2

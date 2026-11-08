@@ -1,0 +1,36 @@
+[gd_resource type="Theme" format=3]
+
+[ext_resource type="FontFile" uid="uid://cx6m0j1w52jcs" path="res://assets/fonts/cairopixel.medium.ttf" id="font"]
+
+[resource]
+default_font = ExtResource("font")
+default_font_size = 12
+
+Label/constants/outline_size = 0
+Label/constants/shadow_outline_size = 0
+RichTextLabel/constants/outline_size = 0
+RichTextLabel/constants/shadow_outline_size = 0
+Button/constants/outline_size = 0
+Button/constants/shadow_outline_size = 0
+LineEdit/constants/outline_size = 0
+LineEdit/constants/shadow_outline_size = 0
+TextEdit/constants/outline_size = 0
+TextEdit/constants/shadow_outline_size = 0
+OptionButton/constants/outline_size = 0
+OptionButton/constants/shadow_outline_size = 0
+CheckBox/constants/outline_size = 0
+CheckBox/constants/shadow_outline_size = 0
+CheckButton/constants/outline_size = 0
+CheckButton/constants/shadow_outline_size = 0
+MenuButton/constants/outline_size = 0
+MenuButton/constants/shadow_outline_size = 0
+LinkButton/constants/outline_size = 0
+LinkButton/constants/shadow_outline_size = 0
+PopupMenu/constants/outline_size = 0
+PopupMenu/constants/shadow_outline_size = 0
+Tree/constants/outline_size = 0
+Tree/constants/shadow_outline_size = 0
+ItemList/constants/outline_size = 0
+ItemList/constants/shadow_outline_size = 0
+TooltipLabel/constants/outline_size = 0
+TooltipLabel/constants/shadow_outline_size = 0

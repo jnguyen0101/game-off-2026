@@ -9,7 +9,7 @@ func _ready() -> void:
 	GameProgress.town_spawn = &"home"
 	%HomeEntrance.activated.connect(_return_home)
 	%GuildEntrance.activated.connect(_enter_guild)
-	$TownHUD/Objective.text = "Head to the Thieves' Guild" if GameProgress.resume_read else "Explore the town"
+	$TownHUD/Objective.text = GameProgress.get_objective()
 
 
 func _return_home() -> void:

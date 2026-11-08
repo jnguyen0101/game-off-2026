@@ -33,6 +33,11 @@ window/stretch/scale_mode="integer"
 
 shiftable=""
 
+[gui]
+
+theme/custom="res://resources/ui_theme.tres"
+theme/custom_font="res://assets/fonts/cairopixel.medium.ttf"
+
 [input]
 
 move_up={

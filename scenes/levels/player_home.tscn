@@ -18,7 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://q2ebaymu7yos" path="res://assets/kenmi/buildings/House_Decor/plant2.tres" id="12_qmykp"]
 [ext_resource type="Texture2D" uid="uid://cnieq235p5toh" path="res://assets/kenmi/buildings/House_Decor/dining_chair.tres" id="13_4yc3m"]
 [ext_resource type="Texture2D" uid="uid://ctohfp6a4h4x" path="res://assets/kenmi/buildings/House_Decor/dining_chair2.tres" id="14_2t1se"]
-[ext_resource type="FontFile" uid="uid://db21mhb185uok" path="res://assets/fonts/PixeloidSans-lxa3y.ttf" id="14_4hv0o"]
+[ext_resource type="FontFile" uid="uid://cx6m0j1w52jcs" path="res://assets/fonts/cairopixel.medium.ttf" id="14_4hv0o"]
 [ext_resource type="Texture2D" uid="uid://db0d0ehr5qq68" path="res://assets/kenmi/buildings/House_Decor/table.tres" id="14_56n1n"]
 [ext_resource type="Texture2D" uid="uid://bk55gsqqnl7go" path="res://assets/kenmi/buildings/House_Decor/lamp.tres" id="14_ico7o"]
 [ext_resource type="Texture2D" uid="uid://d34u01vvbxod2" path="res://assets/kenmi/buildings/House_Decor/apple.tres" id="16_2t1se"]
@@ -29,7 +29,10 @@
 [ext_resource type="Texture2D" uid="uid://b3nm2m5cwmcjx" path="res://assets/kenmi/buildings/House_Decor/Doors.png" id="door"]
 [ext_resource type="Texture2D" uid="uid://hys5kbmkvyg1" path="res://assets/kenmi/buildings/Houses_Interiors/Wood_Floor_Tiles.png" id="floor"]
 [ext_resource type="Script" uid="uid://b7p4ynmv6tpm8" path="res://scripts/objects/lamp_interaction.gd" id="lamp_interaction"]
+[ext_resource type="Script" uid="uid://cvenyowxnm78p" path="res://scripts/objects/dialogue_interactable.gd" id="pickup_thought_script"]
 [ext_resource type="PackedScene" uid="uid://vn2x66vbqdkq" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="Script" uid="uid://c73ac3xkad366" path="res://scripts/objects/resume_interaction.gd" id="resume_action"]
+[ext_resource type="PackedScene" uid="uid://by2kcxn8ugvvc" path="res://scenes/ui/resume_document.tscn" id="resume_document"]
 [ext_resource type="Script" uid="uid://c435noi337v7n" path="res://scripts/levels/player_home.gd" id="script"]
 [ext_resource type="Texture2D" uid="uid://11lvvis8k6g4" path="res://assets/kenmi/buildings/House_Decor/windows.png" id="window"]
 
@@ -63,7 +66,7 @@ texture = ExtResource("4_k5xst")
 [sub_resource type="TileSet" id="TileSet_62wh0"]
 sources/0 = SubResource("TileSetAtlasSource_f3p40")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nt1r7"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o8o3b"]
 texture = ExtResource("4_k5xst")
 0:0/0 = 0
 1:0/0 = 0
@@ -76,11 +79,11 @@ texture = ExtResource("4_k5xst")
 2:2/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_sn8xv"]
-sources/0 = SubResource("TileSetAtlasSource_nt1r7")
+sources/0 = SubResource("TileSetAtlasSource_o8o3b")
 
 [sub_resource type="AtlasTexture" id="WindowTexture"]
 atlas = ExtResource("window")
-region = Rect2(16, 0, 16, 32)
+region = Rect2(16, 64, 16, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sn8xv"]
 size = Vector2(315, 7)
@@ -336,6 +339,9 @@ size = Vector2(14, 26)
 
 [sub_resource type="RectangleShape2D" id="DeskShape"]
 size = Vector2(32, 18)
+
+[sub_resource type="CircleShape2D" id="ResumeInteractionRange"]
+radius = 6.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5sfe4"]
 size = Vector2(10, 11)
@@ -608,21 +614,20 @@ shape = SubResource("DeskShape")
 [node name="Book" parent="Furniture/Bedroom" unique_id=2056535492 instance=ExtResource("dialogue")]
 position = Vector2(123, 53)
 interaction_prompt = "Examine book"
-lines = Array[String](["Lockpicking for Beginners.", "I'm still on Chapter One. On the bright side, I can identify a lock with almost complete confidence."])
+lines = Array[String](["\"Lockpicking for Beginners.\"", "I'm still on Chapter One. On the bright side, I can identify a lock with almost complete confidence."])
 
 [node name="Sprite2D" type="Sprite2D" parent="Furniture/Bedroom/Book" unique_id=313919350]
 position = Vector2(1, -8)
 texture = ExtResource("21_ial6t")
 
-[node name="Resume" parent="Furniture/Bedroom" unique_id=1149747093 instance=ExtResource("dialogue")]
+[node name="Resume" type="Area2D" parent="Furniture/Bedroom" unique_id=1149747093]
 unique_name_in_owner = true
 position = Vector2(138, 54)
-interaction_prompt = "Read resume"
-speaker_name = "My Resume"
-lines = Array[String](["Application: Thieves' Guild.
-Experience: None. Lockpicking: None.", "Special skills: Enthusiastic. Very enthusiastic. And enthusiastic.
-References: My mum.", "It looks better if I hold it farther away.
-Right. Time to head to the guild."])
+collision_mask = 0
+script = ExtResource("resume_action")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Furniture/Bedroom/Resume" unique_id=1528311202]
+shape = SubResource("ResumeInteractionRange")
 
 [node name="Sprite2D" type="Sprite2D" parent="Furniture/Bedroom/Resume" unique_id=1308991383]
 position = Vector2(1, -7)
@@ -688,6 +693,8 @@ shape = SubResource("LampInteractionRange")
 
 [node name="Glow" type="Sprite2D" parent="Furniture/Bedroom/Lamp/Interaction" unique_id=1489621972]
 visible = false
+z_index = 10
+z_as_relative = false
 material = SubResource("LampGlowMaterial")
 position = Vector2(0, -8)
 texture = SubResource("LampGlowTexture")
@@ -739,7 +746,6 @@ texture = SubResource("DoorTexture")
 [node name="Player" parent="Furniture" unique_id=1075512350 instance=ExtResource("player")]
 unique_name_in_owner = true
 position = Vector2(64, 63)
-metadata/_edit_lock_ = true
 
 [node name="EntranceSpawn" type="Marker2D" parent="." unique_id=1590094610]
 unique_name_in_owner = true
@@ -759,8 +765,18 @@ theme_override_colors/font_color = Color(1, 0.85, 0.45, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
-theme_override_constants/outline_size = 1
+theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("14_4hv0o")
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 12
 text = "Read your resume"
 horizontal_alignment = 2
+
+[node name="ResumeDocument" parent="HomeHUD" unique_id=1770897201 instance=ExtResource("resume_document")]
+unique_name_in_owner = true
+
+[node name="ResumePickupThought" type="Area2D" parent="." unique_id=1452922957]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("pickup_thought_script")
+lines = Array[String](["Got my resume. All my accomplishments fit neatly into one pocket."])

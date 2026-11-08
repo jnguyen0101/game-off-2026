@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://cwod1nsyu0vwn"]
+
+[ext_resource type="Texture2D" uid="uid://c4qldyt4cfmgo" path="res://assets/kenmi/characters/seasoned_thief.png" id="1_pakc8"]
+[ext_resource type="PackedScene" uid="uid://beku6g27esqt5" path="res://scenes/objects/dialogue_interactable.tscn" id="dialogue"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vrdse"]
+atlas = ExtResource("1_pakc8")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4hc0u"]
+atlas = ExtResource("1_pakc8")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khsrj"]
+atlas = ExtResource("1_pakc8")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0xdcb"]
+atlas = ExtResource("1_pakc8")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hj6yj"]
+atlas = ExtResource("1_pakc8")
+region = Rect2(256, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_thn8j"]
+atlas = ExtResource("1_pakc8")
+region = Rect2(320, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sn8xv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vrdse")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4hc0u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_khsrj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0xdcb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hj6yj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_thn8j")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="BodyShape"]
+size = Vector2(8, 5.5)
+
+[node name="SeasonedThief" type="StaticBody2D" unique_id=1129601085]
+texture_filter = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=464290447]
+sprite_frames = SubResource("SpriteFrames_sn8xv")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1313803007]
+visible = false
+position = Vector2(0, 4.75)
+shape = SubResource("BodyShape")
+
+[node name="Dialogue" parent="." unique_id=676829986 instance=ExtResource("dialogue")]
+visible = false
+interaction_prompt = "Talk to seasoned thief"
+is_character = true
+speaker_name = "Seasoned Thief"
+lines = Array[String](["You’re the new applicant? Standards really have slipped.", "Try not to touch anything. Some of it’s worth more than you."])
