@@ -13,11 +13,12 @@ func run_test() -> void:
 	for content in ["[E] Read sign", "[E] Open the chest and hold Shift to use Shift Vision | Scroll to choose", "", "[E] Read sign"]:
 		prompt.text = content
 		prompt.visible = not content.is_empty()
-		prompt.custom_minimum_size.x = minf(prompt.get_theme_font("font").get_string_size(content, HORIZONTAL_ALIGNMENT_LEFT, -1, prompt.get_theme_font_size("font_size")).x + 12, 270)
+		prompt.custom_minimum_size.x = minf(prompt.get_theme_font("font").get_string_size(content, HORIZONTAL_ALIGNMENT_LEFT, -1, prompt.get_theme_font_size("font_size")).x + 12, 236)
 		await process_frame
 		await process_frame
 		if prompt.visible:
 			assert(is_equal_approx(prompt.get_global_rect().end.y, 174), "Prompts must be bottom aligned on their first layout pass")
+			assert(is_equal_approx(prompt.get_global_rect().get_center().x, 160), "Prompts must be centered on the viewport")
 			var first_rect: Rect2 = prompt.get_global_rect()
 			await process_frame
 			await process_frame

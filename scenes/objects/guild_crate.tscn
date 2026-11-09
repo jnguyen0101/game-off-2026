@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://diuwwihyfj6mb" path="res://scripts/objects/shiftable_component.gd" id="shiftable"]
 [ext_resource type="Texture2D" uid="uid://cf1ios7na381e" path="res://assets/kenmi/outdoor_decor/Outdoor_Decor_Animations/Break_Animations/Crate_Anim.png" id="texture"]
 
+[ext_resource type="Texture2D" path="res://assets/ui/shift_masks/crate_mask.png" id="highlight_mask"]
+
 [sub_resource type="RectangleShape2D" id="body"]
 size = Vector2(14, 7.5)
 
@@ -25,6 +27,7 @@ shape = SubResource("body")
 
 [node name="ShiftableComponent" type="Node" parent="." unique_id=2098870106]
 script = ExtResource("shiftable")
+highlight_mask = ExtResource("highlight_mask")
 
 [node name="ShiftArea" type="Area2D" parent="." unique_id=279608042 groups=["shiftable"]]
 position = Vector2(0, -3)

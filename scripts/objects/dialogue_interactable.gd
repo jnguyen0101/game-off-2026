@@ -3,6 +3,7 @@ extends Area2D
 signal dialogue_finished
 
 @export var interaction_prompt: String = "Read"
+@export var show_shift_hint: bool = true
 @export var is_character: bool = false
 @export var speaker_name: String = ""
 @export var page_speakers: Array[String] = []

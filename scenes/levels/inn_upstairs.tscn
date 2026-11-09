@@ -1,0 +1,389 @@
+[gd_scene format=4 uid="uid://b670kookbxkoi"]
+
+[ext_resource type="Texture2D" uid="uid://08k83lfgsj2l" path="res://assets/kenmi/buildings/Houses_Interiors/Brick_Wall_Fillers.png" id="4_lrkqe"]
+[ext_resource type="Texture2D" uid="uid://drr0hliu448qp" path="res://assets/trislin/floors_walls.png" id="6_vl5oj"]
+[ext_resource type="Texture2D" uid="uid://er85adlh4ldg" path="res://assets/trislin/decorations.png" id="12_3ixhc"]
+[ext_resource type="Texture2D" uid="uid://dhreas6qhqa6c" path="res://assets/kenmi/buildings/House_Decor/Beds.png" id="beds"]
+[ext_resource type="Texture2D" uid="uid://bk55gsqqnl7go" path="res://assets/kenmi/buildings/House_Decor/lamp.tres" id="bunkroom_lamp"]
+[ext_resource type="Texture2D" uid="uid://58qqyh1guq61" path="res://assets/kenmi/buildings/House_Decor/plant.tres" id="bunkroom_plant"]
+[ext_resource type="Texture2D" uid="uid://bmpapjhao3le8" path="res://assets/kenmi/buildings/House_Decor/Chest_Anim.png" id="bunk_trunk"]
+[ext_resource type="PackedScene" uid="uid://beku6g27esqt5" path="res://scenes/objects/dialogue_interactable.tscn" id="dialogue"]
+[ext_resource type="Texture2D" uid="uid://hys5kbmkvyg1" path="res://assets/kenmi/buildings/Houses_Interiors/Wood_Floor_Tiles.png" id="floor"]
+[ext_resource type="FontFile" uid="uid://db21mhb185uok" path="res://assets/fonts/PixeloidSans-lxa3y.ttf" id="font"]
+[ext_resource type="Script" uid="uid://b7p4ynmv6tpm8" path="res://scripts/objects/lamp_interaction.gd" id="lamp_interaction"]
+[ext_resource type="AudioStream" uid="uid://dphp81po4vodo" path="res://assets/audio/lamp_string.mp3" id="lamp_string"]
+[ext_resource type="PackedScene" uid="uid://vn2x66vbqdkq" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="Script" uid="uid://crxid8ttt0qmn" path="res://scripts/objects/home_entrance.gd" id="portal"]
+[ext_resource type="Script" uid="uid://by4kkr4k645mf" path="res://scripts/levels/inn_upstairs.gd" id="script"]
+[ext_resource type="Texture2D" uid="uid://ds18xkh2beum3" path="res://assets/kenmi/buildings/House_Decor/Furniture_Other.png" id="travel_trunk"]
+[ext_resource type="Texture2D" uid="uid://drsxinpx8r8ip" path="res://assets/kenmi/buildings/Houses_Interiors/Interior_Walls.png" id="trim"]
+[ext_resource type="Texture2D" uid="uid://3dx0q31yjm37" path="res://assets/kenmi/buildings/Houses_Interiors/Wood_Wall_Fillers.png" id="wall"]
+[ext_resource type="Texture2D" uid="uid://11lvvis8k6g4" path="res://assets/kenmi/buildings/House_Decor/windows.png" id="window"]
+
+[sub_resource type="TileSetAtlasSource" id="FloorAtlas"]
+texture = ExtResource("floor")
+0:2/0 = 0
+1:2/0 = 0
+6:2/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+7:2/0 = 0
+6:0/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+7:0/0 = 0
+4:0/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+5:0/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+
+[sub_resource type="TileSet" id="FloorTiles"]
+sources/0 = SubResource("FloorAtlas")
+
+[sub_resource type="TileSetAtlasSource" id="WallAtlas"]
+texture = ExtResource("wall")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ywmij"]
+texture = ExtResource("4_lrkqe")
+0:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+1:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ywyo4"]
+texture = ExtResource("trim")
+5:3/0 = 0
+5:4/0 = 0
+5:5/0 = 0
+12:3/0 = 0
+12:4/0 = 0
+12:5/0 = 0
+13:3/0 = 0
+13:4/0 = 0
+13:5/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r4ttc"]
+texture = ExtResource("6_vl5oj")
+4:15/0 = 0
+4:16/0 = 0
+5:16/0 = 0
+5:15/0 = 0
+4:13/0 = 0
+4:14/0 = 0
+5:14/0 = 0
+5:13/0 = 0
+
+[sub_resource type="TileSet" id="WallTiles"]
+sources/0 = SubResource("WallAtlas")
+sources/1 = SubResource("TileSetAtlasSource_ywmij")
+sources/2 = SubResource("TileSetAtlasSource_ywyo4")
+sources/3 = SubResource("TileSetAtlasSource_r4ttc")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tiu5g"]
+load_path = "res://.godot/imported/floors_walls.png-c328eb16dce1887447391919d669729e.ctex"
+
+[sub_resource type="TileSetAtlasSource" id="TrimAtlas"]
+texture = ExtResource("trim")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+
+[sub_resource type="TileSet" id="TrimTiles"]
+sources/0 = SubResource("TrimAtlas")
+
+[sub_resource type="RectangleShape2D" id="BunkBedShape"]
+size = Vector2(14, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_esmin"]
+size = Vector2(14, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ejqkw"]
+size = Vector2(14, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ixhc"]
+size = Vector2(16, 15)
+
+[sub_resource type="RectangleShape2D" id="BunkTrunkShape"]
+size = Vector2(14, 9)
+
+[sub_resource type="RectangleShape2D" id="BunkroomDecorBase"]
+size = Vector2(9, 8)
+
+[sub_resource type="CircleShape2D" id="LampInteractionRange"]
+radius = 9.0
+
+[sub_resource type="CanvasItemMaterial" id="LampGlowMaterial"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="LampGlowGradient"]
+offsets = PackedFloat32Array(0, 0.25, 1)
+colors = PackedColorArray(1, 0.8724175, 0.6686011, 0.45, 1, 0.65, 0.25, 0.18, 1, 0.6, 0.2, 0)
+
+[sub_resource type="GradientTexture2D" id="LampGlowTexture"]
+gradient = SubResource("LampGlowGradient")
+width = 48
+height = 48
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="RectangleShape2D" id="NorthWall"]
+size = Vector2(160, 48)
+
+[sub_resource type="RectangleShape2D" id="SideWall"]
+size = Vector2(16, 176)
+
+[sub_resource type="RectangleShape2D" id="SouthWall"]
+size = Vector2(192, 16)
+
+[node name="InnUpstairs" type="Node2D" unique_id=2104997240]
+script = ExtResource("script")
+
+[node name="Background" type="Polygon2D" parent="." unique_id=1015498179]
+z_index = -5
+color = Color(0.07, 0.045, 0.045, 1)
+polygon = PackedVector2Array(-1000, -1000, 1000, -1000, 1000, 1000, -1000, 1000)
+
+[node name="Floor" type="TileMapLayer" parent="." unique_id=2043125247 groups=["footstep_surface"]]
+z_index = -3
+tile_map_data = PackedByteArray("AAACAAQAAAAAAAIAAAADAAQAAAABAAMAAAAEAAQAAAAAAAIAAAAFAAQAAAABAAIAAAAGAAQAAAAAAAIAAAAHAAQAAAABAAIAAAAIAAQAAAAAAAIAAAAJAAQAAAABAAIAAAAKAAQAAAAAAAIAAAALAAQAAAABAAIAAAACAAUAAAAAAAIAAAADAAUAAAABAAIAAAAEAAUAAAAAAAIAAAAFAAUAAAABAAIAAAAGAAUAAAAAAAIAAAAHAAUAAAAAAAMAAAAIAAUAAAAAAAIAAAAJAAUAAAABAAIAAAAKAAUAAAAAAAIAAAALAAUAAAABAAIAAAACAAYAAAAAAAMAAAADAAYAAAABAAIAAAAEAAYAAAAAAAIAAAAFAAYAAAABAAIAAAAGAAYAAAAAAAIAAAAHAAYAAAABAAIAAAAIAAYAAAAAAAIAAAAJAAYAAAABAAIAAAAKAAYAAAABAAMAAAALAAYAAAABAAIAAAACAAcAAAAAAAIAAAADAAcAAAABAAIAAAAEAAcAAAAAAAIAAAAFAAcAAAABAAIAAAAGAAcAAAAAAAIAAAAHAAcAAAABAAIAAAAIAAcAAAAAAAMAAAAJAAcAAAABAAIAAAAKAAcAAAAAAAIAAAALAAcAAAABAAIAAAACAAgAAAAAAAIAAAADAAgAAAABAAIAAAAEAAgAAAAAAAIAAAAFAAgAAAABAAIAAAAGAAgAAAAAAAIAAAAHAAgAAAABAAIAAAAIAAgAAAAAAAIAAAAJAAgAAAABAAIAAAAKAAgAAAAAAAIAAAALAAgAAAABAAIAAAACAAkAAAAAAAIAAAADAAkAAAAAAAMAAAAEAAkAAAAAAAIAAAAFAAkAAAABAAMAAAAGAAkAAAAAAAIAAAAHAAkAAAABAAIAAAAIAAkAAAAAAAIAAAAJAAkAAAABAAIAAAAKAAkAAAAAAAMAAAALAAkAAAABAAIAAAA=")
+tile_set = SubResource("FloorTiles")
+collision_enabled = false
+metadata/footstep_surface = &"wood"
+
+[node name="BackWalls" type="TileMapLayer" parent="." unique_id=1181499325]
+z_index = -2
+tile_map_data = PackedByteArray("AAACAAEAAgAFAAMAAAADAAEAAgAFAAMAAAAEAAEAAgAFAAMAAAAFAAEAAgAFAAMAAAAGAAEAAgAFAAMAAAAHAAEAAgAFAAMAAAAIAAEAAgAFAAMAAAAJAAEAAgAFAAMAAAAKAAEAAgAFAAMAAAALAAEAAgAFAAMAAAACAAIAAgAFAAQAAAADAAIAAgAFAAQAAAAEAAIAAgAFAAQAAAAFAAIAAgAFAAQAAAAGAAIAAgAFAAQAAAAHAAIAAgAFAAQAAAAIAAIAAgAFAAQAAAAJAAIAAgAFAAQAAAAKAAIAAgAFAAQAAAALAAIAAgAFAAQAAAACAAMAAgAFAAUAAAADAAMAAgAFAAUAAAAEAAMAAgAFAAUAAAAFAAMAAgAFAAUAAAAGAAMAAgAFAAUAAAAHAAMAAgAFAAUAAAAIAAMAAgAFAAUAAAAJAAMAAgAFAAUAAAAKAAMAAgAFAAUAAAALAAMAAgAFAAUAAAA=")
+tile_set = SubResource("WallTiles")
+collision_enabled = false
+
+[node name="Stairs" type="Sprite2D" parent="." unique_id=872518793]
+position = Vector2(48, 48)
+texture = SubResource("CompressedTexture2D_tiu5g")
+region_enabled = true
+region_rect = Rect2(64, 208, 32, 32)
+
+[node name="World" type="Node2D" parent="." unique_id=1818208124]
+y_sort_enabled = true
+
+[node name="Trim" type="TileMapLayer" parent="World" unique_id=1381303476]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAABAAAAAAAAAAAAAAACAAAAAAABAAAAAAADAAAAAAABAAAAAAAEAAAAAAABAAAAAAAFAAAAAAABAAAAAAAGAAAAAAABAAAAAAAHAAAAAAABAAAAAAAIAAAAAAABAAAAAAAJAAAAAAABAAAAAAAKAAAAAAABAAAAAAALAAAAAAABAAAAAAAMAAAAAAACAAAAAAABAAEAAAAAAAEAAAAMAAEAAAACAAEAAAABAAIAAAAAAAEAAAAMAAIAAAACAAEAAAABAAMAAAAAAAEAAAAMAAMAAAACAAEAAAABAAQAAAAAAAEAAAAMAAQAAAACAAEAAAABAAUAAAAAAAEAAAAMAAUAAAACAAEAAAABAAYAAAAAAAEAAAAMAAYAAAACAAEAAAABAAcAAAAAAAEAAAAMAAcAAAACAAEAAAABAAgAAAAAAAEAAAAMAAgAAAACAAEAAAABAAkAAAAAAAEAAAAMAAkAAAACAAEAAAABAAoAAAAAAAIAAAACAAoAAAABAAIAAAADAAoAAAABAAIAAAAEAAoAAAABAAIAAAAFAAoAAAABAAIAAAAGAAoAAAABAAIAAAAHAAoAAAABAAIAAAAIAAoAAAABAAIAAAAJAAoAAAABAAIAAAAKAAoAAAABAAIAAAALAAoAAAABAAIAAAAMAAoAAAACAAIAAAA=")
+tile_set = SubResource("TrimTiles")
+collision_enabled = false
+
+[node name="StairsDown" parent="World" unique_id=52543699 instance=ExtResource("dialogue")]
+unique_name_in_owner = true
+position = Vector2(49, 50)
+script = ExtResource("portal")
+interaction_prompt = "Go downstairs"
+
+[node name="WestWindow" type="Sprite2D" parent="World" unique_id=1551001507]
+z_index = -1
+position = Vector2(106, 40)
+texture = ExtResource("window")
+region_enabled = true
+region_rect = Rect2(0, 64, 16, 32)
+
+[node name="EastWindow" type="Sprite2D" parent="World" unique_id=1218505001]
+z_index = -1
+position = Vector2(152, 40)
+texture = ExtResource("window")
+region_enabled = true
+region_rect = Rect2(0, 64, 16, 32)
+
+[node name="GuestBed1" type="StaticBody2D" parent="World" unique_id=1677676500]
+position = Vector2(83, 71)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/GuestBed1" unique_id=569873131]
+position = Vector2(0, -6)
+texture = ExtResource("beds")
+region_enabled = true
+region_rect = Rect2(32, 32, 16, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/GuestBed1" unique_id=1840709203]
+visible = false
+position = Vector2(0, -6.5)
+shape = SubResource("BunkBedShape")
+
+[node name="GuestBed2" type="StaticBody2D" parent="World" unique_id=1599669431]
+position = Vector2(129, 71)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/GuestBed2" unique_id=422760661]
+position = Vector2(0, -6)
+texture = ExtResource("beds")
+region_enabled = true
+region_rect = Rect2(32, 96, 16, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/GuestBed2" unique_id=993299822]
+visible = false
+position = Vector2(0, -6.5)
+shape = SubResource("RectangleShape2D_esmin")
+
+[node name="GuestBed3" type="StaticBody2D" parent="World" unique_id=709173049]
+position = Vector2(175, 71)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/GuestBed3" unique_id=1610049821]
+position = Vector2(0, -6)
+texture = ExtResource("beds")
+region_enabled = true
+region_rect = Rect2(32, 64, 16, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/GuestBed3" unique_id=1345826119]
+visible = false
+position = Vector2(0, -6.5)
+shape = SubResource("RectangleShape2D_ejqkw")
+
+[node name="BedsideTable1" type="StaticBody2D" parent="World" unique_id=611282827]
+position = Vector2(152, 65)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/BedsideTable1" unique_id=1074252552]
+position = Vector2(0, -3)
+texture = ExtResource("travel_trunk")
+region_enabled = true
+region_rect = Rect2(64, 0, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/BedsideTable1" unique_id=365292805]
+visible = false
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_3ixhc")
+
+[node name="Books" type="Sprite2D" parent="World/BedsideTable1" unique_id=1097302927]
+position = Vector2(0, -12)
+texture = ExtResource("12_3ixhc")
+region_enabled = true
+region_rect = Rect2(176, 160, 16, 16)
+
+[node name="BedsideTable2" type="StaticBody2D" parent="World" unique_id=917246327]
+position = Vector2(106, 65)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/BedsideTable2" unique_id=1100248986]
+position = Vector2(0, -3)
+texture = ExtResource("travel_trunk")
+region_enabled = true
+region_rect = Rect2(64, 0, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/BedsideTable2" unique_id=1669924252]
+visible = false
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_3ixhc")
+
+[node name="TravelTrunk" type="StaticBody2D" parent="World" unique_id=573595754]
+position = Vector2(179, 140)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/TravelTrunk" unique_id=948608866]
+texture = ExtResource("bunk_trunk")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TravelTrunk" unique_id=278400815]
+visible = false
+position = Vector2(0, 1.5)
+shape = SubResource("BunkTrunkShape")
+
+[node name="StandingLamp" type="StaticBody2D" parent="World" unique_id=534072562]
+position = Vector2(38, 158)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/StandingLamp" unique_id=1297930139]
+position = Vector2(0, -11)
+texture = ExtResource("bunkroom_lamp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/StandingLamp" unique_id=172483596]
+visible = false
+position = Vector2(0.5, 0)
+shape = SubResource("BunkroomDecorBase")
+
+[node name="Interaction" type="Area2D" parent="World/StandingLamp" unique_id=1421327380]
+collision_mask = 0
+script = ExtResource("lamp_interaction")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/StandingLamp/Interaction" unique_id=604863653]
+visible = false
+shape = SubResource("LampInteractionRange")
+
+[node name="StringSound" type="AudioStreamPlayer2D" parent="World/StandingLamp/Interaction" unique_id=580113259]
+stream = ExtResource("lamp_string")
+volume_db = -4.0
+max_distance = 96.0
+bus = &"ShiftMuffled"
+
+[node name="Glow" type="Sprite2D" parent="World/StandingLamp/Interaction" unique_id=1684089028]
+visible = false
+z_index = 10
+z_as_relative = false
+material = SubResource("LampGlowMaterial")
+position = Vector2(0, -19)
+texture = SubResource("LampGlowTexture")
+
+[node name="Light" type="PointLight2D" parent="World/StandingLamp/Interaction" unique_id=1559795516]
+visible = false
+position = Vector2(0, -19)
+color = Color(0.9999998, 0.8444181, 0.6195752, 1)
+energy = 0.35
+blend_mode = 1
+texture = SubResource("LampGlowTexture")
+texture_scale = 2.0
+
+[node name="PottedPlant" type="StaticBody2D" parent="World" unique_id=1094973578]
+position = Vector2(69, 62)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/PottedPlant" unique_id=603603407]
+position = Vector2(0, -8)
+texture = ExtResource("bunkroom_plant")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/PottedPlant" unique_id=1471762462]
+visible = false
+position = Vector2(0, 2)
+shape = SubResource("BunkroomDecorBase")
+
+[node name="Player" parent="World" unique_id=317974909 instance=ExtResource("player")]
+unique_name_in_owner = true
+position = Vector2(49, 64)
+metadata/_edit_lock_ = true
+
+[node name="SolidWalls" type="StaticBody2D" parent="." unique_id=1316964770]
+visible = false
+
+[node name="North" type="CollisionShape2D" parent="SolidWalls" unique_id=1584977285]
+position = Vector2(112, 40)
+shape = SubResource("NorthWall")
+
+[node name="West" type="CollisionShape2D" parent="SolidWalls" unique_id=1988648458]
+position = Vector2(24, 88)
+shape = SubResource("SideWall")
+
+[node name="East" type="CollisionShape2D" parent="SolidWalls" unique_id=2097374897]
+position = Vector2(200, 88)
+shape = SubResource("SideWall")
+
+[node name="South" type="CollisionShape2D" parent="SolidWalls" unique_id=1602950162]
+position = Vector2(112, 168)
+shape = SubResource("SouthWall")
+
+[node name="InnHUD" type="CanvasLayer" parent="." unique_id=139573901]
+layer = 3
+
+[node name="Objective" type="Label" parent="InnHUD" unique_id=283917578]
+unique_name_in_owner = true
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 6.0
+offset_right = -8.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.45, 1)
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 2

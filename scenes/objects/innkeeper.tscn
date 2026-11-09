@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://dulxjpd27tgby"]
+
+[ext_resource type="PackedScene" uid="uid://beku6g27esqt5" path="res://scenes/objects/dialogue_interactable.tscn" id="dialogue"]
+[ext_resource type="Texture2D" uid="uid://ckk2q7mga6k4u" path="res://assets/kenmi/characters/Bartender_Katy.png" id="texture"]
+
+[sub_resource type="AtlasTexture" id="Idle0"]
+atlas = ExtResource("texture")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Idle1"]
+atlas = ExtResource("texture")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Idle2"]
+atlas = ExtResource("texture")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Idle3"]
+atlas = ExtResource("texture")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Idle4"]
+atlas = ExtResource("texture")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="Idle5"]
+atlas = ExtResource("texture")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="frames"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Idle0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Idle1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Idle2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Idle3")
+}, {
+"duration": 1.0,
+"texture": SubResource("Idle4")
+}, {
+"duration": 1.0,
+"texture": SubResource("Idle5")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="body"]
+size = Vector2(8, 5)
+
+[node name="Innkeeper" type="StaticBody2D" unique_id=467909207]
+texture_filter = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=710549988]
+sprite_frames = SubResource("frames")
+animation = &"idle"
+autoplay = "idle"
+frame = 3
+frame_progress = 0.7630875
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=328002953]
+position = Vector2(0, 5)
+shape = SubResource("body")
+
+[node name="Dialogue" parent="." unique_id=290214336 instance=ExtResource("dialogue")]
+position = Vector2(0, 8)
+interaction_prompt = "Talk to innkeeper"
+is_character = true
+speaker_name = "Innkeeper"
+lines = Array[String](["Welcome to the Wayward Pick. Looking for a room, or just somewhere to rest your feet?"])

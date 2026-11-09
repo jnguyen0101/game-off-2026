@@ -41,6 +41,7 @@ func interact(player: Node) -> void:
 		if GameProgress.guild_test == GameProgress.GuildTest.ASSIGNED:
 			GameProgress.guild_test = GameProgress.GuildTest.OPENED
 		_update_state()
+		$OpenSound.play()
 		opened.emit()
 		message = "The lid opens. That should do it."
 	$Interaction.lines.assign([message])

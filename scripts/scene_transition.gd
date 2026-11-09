@@ -7,11 +7,23 @@ signal transition_finished(error: int)
 
 var is_transitioning: bool = false
 var overlay: ColorRect
+var door_sound: AudioStreamPlayer
+var stair_sound: AudioStreamPlayer
 
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	layer = 100
+	door_sound = AudioStreamPlayer.new()
+	door_sound.stream = preload("res://assets/audio/door.mp3")
+	door_sound.volume_db = -8.0
+	door_sound.bus = &"ShiftMuffled"
+	add_child(door_sound)
+	stair_sound = AudioStreamPlayer.new()
+	stair_sound.stream = preload("res://assets/audio/inn_stairs_steps.tres")
+	stair_sound.volume_db = -16.0
+	stair_sound.bus = &"ShiftMuffled"
+	add_child(stair_sound)
 	overlay = ColorRect.new()
 	overlay.color = Color(0, 0, 0, 0)
 	overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -25,7 +37,21 @@ func _input(_event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 
-func change_scene(path: String) -> void:
+func change_scene_through_door(path: String) -> void:
+	if is_transitioning:
+		return
+	door_sound.play()
+	await change_scene(path)
+
+
+func change_scene_on_stairs(path: String) -> void:
+	if is_transitioning:
+		return
+	stair_sound.play()
+	await change_scene(path)
+
+
+func change_scene(path: String, hold_duration: float = -1.0) -> void:
 	if is_transitioning:
 		return
 	is_transitioning = true
@@ -39,7 +65,8 @@ func change_scene(path: String) -> void:
 		# Destination _ready and spawn placement finish behind the black overlay.
 		await tree.process_frame
 		await tree.process_frame
-		await tree.create_timer(black_hold_duration, true, false, true).timeout
+		var hold := black_hold_duration if hold_duration < 0.0 else hold_duration
+		await tree.create_timer(hold, true, false, true).timeout
 	else:
 		push_error("Could not change scene to %s (error %d)" % [path, error])
 	await _fade_to(0.0)

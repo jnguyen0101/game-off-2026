@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c1j21qn2xuivw"
+path="res://.godot/imported/Drifting Memories.ogg-00e71cc85f795b8e9612177f7e6efda7.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/pizza_doggy/Drifting Memories.ogg"
+dest_files=["res://.godot/imported/Drifting Memories.ogg-00e71cc85f795b8e9612177f7e6efda7.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

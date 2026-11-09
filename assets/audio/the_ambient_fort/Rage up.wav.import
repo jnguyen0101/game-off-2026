@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bc1e7cwhfu3m7"
+path="res://.godot/imported/Rage up.wav-de5d032cc34b5de008459ee50bd7accd.sample"
+
+[deps]
+
+source_file="res://assets/audio/the_ambient_fort/Rage up.wav"
+dest_files=["res://.godot/imported/Rage up.wav-de5d032cc34b5de008459ee50bd7accd.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

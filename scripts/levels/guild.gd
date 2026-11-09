@@ -7,10 +7,20 @@ func _ready() -> void:
 	%Player.update_animation(Vector2.ZERO)
 	%Exit.activated.connect(_leave_guild)
 	%GuildHead.dialogue_finished.connect(_on_guild_head_finished)
+	%Player.property_taken.connect(_on_property_taken)
 	get_node("%Wooden Chest").state_changed.connect(_update_quest)
 	get_node("%Wooden Crate").state_changed.connect(_update_quest)
 	get_node("%Wooden Keg").state_changed.connect(_update_quest)
 	_update_quest()
+
+
+func _on_property_taken(target: Node, property: ShiftProperty) -> void:
+	if GameProgress.shift_discovery_seen or GameProgress.guild_test != GameProgress.GuildTest.ASSIGNED:
+		return
+	if target != get_node("%Wooden Chest") or property != preload("res://resources/properties/locked.tres"):
+		return
+	GameProgress.shift_discovery_seen = true
+	%Player.start_dialogue(%ShiftDiscoveryThought)
 
 
 func _on_guild_head_finished() -> void:
@@ -21,6 +31,11 @@ func _on_guild_head_finished() -> void:
 		GameProgress.GuildTest.OPENED:
 			if GameProgress.test_chest_opened and not GameProgress.test_chest_locked and GameProgress.has_placed_test_lock():
 				GameProgress.guild_test = GameProgress.GuildTest.COMPLETE
+		GameProgress.GuildTest.COMPLETE:
+			if GameProgress.guild_overnight_complete:
+				GameProgress.first_job_ready = true
+				if GameProgress.first_job == GameProgress.FirstJob.NOT_ASSIGNED:
+					GameProgress.first_job = GameProgress.FirstJob.TALK_TO_INNKEEPER
 	_update_quest()
 
 
@@ -32,9 +47,15 @@ func _update_quest() -> void:
 	if GameProgress.guild_test == GameProgress.GuildTest.COMPLETE:
 		$World/SeasonedThief/Dialogue.speaker_name = "Rook"
 		$World/SeasonedThief/Dialogue.interaction_prompt = "Talk to Rook"
-		$World/SeasonedThief/Dialogue.lines.assign([
-			"Don’t mistake his low standards for talent."
-		])
+		if GameProgress.guild_overnight_complete:
+			$World/SeasonedThief/Dialogue.lines.assign([
+				"Back again? I was hoping you'd sleep on it and find another profession.",
+				"Try not to make Marlow regret his decision."
+			])
+		else:
+			$World/SeasonedThief/Dialogue.lines.assign([
+				"Don’t mistake his low standards for talent."
+			])
 	match GameProgress.guild_test:
 		GameProgress.GuildTest.NOT_ASSIGNED:
 			%GuildHead.lines.assign([
@@ -57,15 +78,32 @@ func _update_quest() -> void:
 				"Never mind. You passed. Welcome to the Thieves' Guild.",
 				"He let you in? Must be getting desperate.",
 				"That's enough, Rook.",
-				"What? I'm making him feel welcome."
+				"What? I'm making him feel welcome.",
+				"Come back tomorrow. I'll have the details of your first job ready.",
+				"And get some sleep. Enthusiasm's no substitute."
 			])
-			%GuildHead.page_speakers.assign(["Marlow", "Marlow", "Marlow", "Seasoned Thief", "Marlow", "Rook"])
+			%GuildHead.page_speakers.assign(["Marlow", "Marlow", "Marlow", "Seasoned Thief", "Marlow", "Rook", "Marlow", "Marlow"])
 		GameProgress.GuildTest.COMPLETE:
-			%GuildHead.lines.assign(["Still wondering about that lock. Keep surprising me, and you'll do well here."])
+			if not GameProgress.guild_overnight_complete:
+				%GuildHead.lines.assign(["Go home and get some rest, Filch. Come back tomorrow for your first job."])
+			elif GameProgress.first_job == GameProgress.FirstJob.NOT_ASSIGNED:
+				%GuildHead.lines.assign([
+					"Morning, Filch. You're on time. That's a promising start.",
+					"The innkeeper's missing a ring. Brass signet. Belonged to her father.",
+					"A palace collector took it against an unpaid levy. She paid. He kept it.",
+					"Isn't that technically returning something?",
+					"Get through the locked door first. We'll argue about terminology afterward.",
+					"Speak to the innkeeper. Get a description, then bring back the ring. Leave everything else where it is."
+				])
+				%GuildHead.page_speakers.assign(["Marlow", "Marlow", "Marlow", "Oliver", "Marlow", "Marlow"])
+			elif GameProgress.first_job == GameProgress.FirstJob.TALK_TO_INNKEEPER:
+				%GuildHead.lines.assign(["Speak to the innkeeper at the Wayward Pick. She'll tell you what you're looking for."])
+			else:
+				%GuildHead.lines.assign(["Bring back the signet, Filch. One ring. No other souvenirs."])
 
 
 func _leave_guild() -> void:
 	if SceneTransition.is_transitioning:
 		return
 	GameProgress.town_spawn = &"guild"
-	SceneTransition.change_scene("res://scenes/levels/town.tscn")
+	SceneTransition.change_scene_through_door("res://scenes/levels/town.tscn")

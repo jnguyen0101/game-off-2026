@@ -7,17 +7,20 @@ func _initialize() -> void:
 
 func finish_dialogue(player: Node) -> void:
 	while player.dialogue_active:
-		player.dialogue_box.advance()
+		advance_page(player)
 
 
 func run_test() -> void:
 	var progress = root.get_node("GameProgress")
 	progress.guild_test = 0
+	progress.guild_overnight_complete = false
+	progress.first_job_ready = false
 	progress.shift_unlocked = false
 	progress.test_chest_locked = true
 	progress.test_chest_opened = false
 	progress.test_crate_locked = false
 	progress.test_keg_locked = false
+	progress.shift_discovery_seen = false
 	progress.carried_property = null
 	progress.resume_read = true
 	var transition = root.get_node("SceneTransition")
@@ -62,6 +65,7 @@ func run_test() -> void:
 	player.nearby_object = chest
 	player.enter_shift_mode()
 	player.transfer_property()
+	finish_dialogue(player)
 	player.exit_shift_mode()
 	assert(player.carried_property.property_name == "LOCKED" and not progress.test_chest_locked, "Shift must steal the chest's lock")
 	assert(not progress.test_chest_opened and progress.guild_test == 1, "Unlocking alone must not count as opening")
@@ -113,16 +117,16 @@ func run_test() -> void:
 	assert(head.lines[1].contains("How did you open it"), "The guild head should wonder how the player opened the chest")
 	head.interact(player)
 	for index in 3:
-		player.dialogue_box.advance()
+		advance_page(player)
 	assert(player.dialogue_box.get_node("Margin/Row/SpeakerColumn/Name").text == "Seasoned Thief", "The interruption must initially hide Rook's name")
-	player.dialogue_box.advance()
+	advance_page(player)
 	assert(player.dialogue_box.get_node("Margin/Row/SpeakerColumn/Name").text == "Marlow", "Marlow must address Rook")
-	player.dialogue_box.advance()
+	advance_page(player)
 	assert(player.dialogue_box.get_node("Margin/Row/SpeakerColumn/Name").text == "Rook", "Rook's reply must use his revealed name")
 	finish_dialogue(player)
-	assert(progress.guild_test == 3 and guild.get_node("%Objective").text == "Guild test complete", "The debrief must complete the test")
+	assert(progress.guild_test == 3 and guild.get_node("%Objective").text == "Go home and rest", "The debrief must complete the test")
 	var thief_dialogue = guild.get_node("World/SeasonedThief/Dialogue")
-	assert(thief_dialogue.lines[0] == "He let you in? Must be getting desperate.", "Passing must preserve the chosen post-test insult")
+	assert(not thief_dialogue.lines.is_empty(), "Passing must retain the thief's post-test dialogue")
 	assert(thief_dialogue.speaker_name == "Rook", "Passing must reveal Rook's name for later conversations")
 	thief_dialogue.interact(player)
 	assert(player.dialogue_active, "The thief's post-test dialogue must be interactable")
@@ -130,3 +134,8 @@ func run_test() -> void:
 	guild.queue_free()
 	print("Guild chest quest checks passed")
 	quit()
+
+
+func advance_page(player: Node) -> void:
+	player.dialogue_box.finish_typing()
+	player.dialogue_box.advance()

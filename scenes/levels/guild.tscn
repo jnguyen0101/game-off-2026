@@ -4,10 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://b6b00yeruautg" path="res://assets/kenmi/buildings/Houses_Interiors/trimends.png" id="5_mtle0"]
 [ext_resource type="Texture2D" uid="uid://11lvvis8k6g4" path="res://assets/kenmi/buildings/House_Decor/windows.png" id="5_og3no"]
 [ext_resource type="Texture2D" uid="uid://bsmiog8utd6jd" path="res://assets/kenmi/characters/Guild_head.png" id="7_ti1sr"]
+[ext_resource type="Texture2D" uid="uid://er85adlh4ldg" path="res://assets/trislin/decorations.png" id="7_y0rpi"]
 [ext_resource type="Texture2D" uid="uid://coeskvug6sone" path="res://assets/kenmi/outdoor_decor/Outdoor_Decor_Animations/Other_Animations/Fireplace_Anim.png" id="9_nww34"]
 [ext_resource type="Texture2D" uid="uid://bh4oxijmn5ear" path="res://assets/kenmi/buildings/House_Decor/Anvil_Anim.png" id="10_f3eku"]
+[ext_resource type="AudioStream" uid="uid://syxw3xcv6wxm" path="res://assets/audio/nox_sound/Nature_Essentials_NOX_SOUND/Ambiance_Firecamp_Small_Loop_Mono.wav" id="12_pdbmo"]
 [ext_resource type="Texture2D" uid="uid://cd3pfhgxpfdvl" path="res://assets/kenmi/outdoor_decor/Ores.png" id="12_q8o0y"]
 [ext_resource type="Texture2D" uid="uid://dgwit0yedt161" path="res://assets/kenmi/buildings/House_Decor/Indoor_Decor.png" id="13_qarmx"]
+[ext_resource type="Texture2D" uid="uid://cm02rgsal80kv" path="res://assets/trislin/Animated/candles_animated.png" id="25_uf7cb"]
 [ext_resource type="PackedScene" uid="uid://dwodadfajc0mj" path="res://scenes/objects/guild_crate.tscn" id="crate"]
 [ext_resource type="Texture2D" uid="uid://8v11woodwkop" path="res://assets/kenmi/buildings/House_Decor/door.tres" id="door"]
 [ext_resource type="Texture2D" uid="uid://hys5kbmkvyg1" path="res://assets/kenmi/buildings/Houses_Interiors/Wood_Floor_Tiles.png" id="floor"]
@@ -15,15 +18,17 @@
 [ext_resource type="Texture2D" uid="uid://ds18xkh2beum3" path="res://assets/kenmi/buildings/House_Decor/Furniture_Other.png" id="guild_cabinet"]
 [ext_resource type="Texture2D" uid="uid://58qqyh1guq61" path="res://assets/kenmi/buildings/House_Decor/plant.tres" id="guild_plant"]
 [ext_resource type="Texture2D" uid="uid://cilwv0fdasq7w" path="res://assets/kenmi/buildings/House_Decor/armchair.tres" id="guild_seat"]
+[ext_resource type="Texture2D" uid="uid://du33s2e4okle5" path="res://assets/ui/shift_masks/keg_mask.png" id="highlight_mask"]
 [ext_resource type="PackedScene" uid="uid://beku6g27esqt5" path="res://scenes/objects/dialogue_interactable.tscn" id="interaction"]
 [ext_resource type="Script" uid="uid://cnq85bgldpeca" path="res://scripts/objects/guild_crate.gd" id="keg_script"]
 [ext_resource type="Script" uid="uid://diuwwihyfj6mb" path="res://scripts/objects/shiftable_component.gd" id="keg_shiftable"]
-[ext_resource type="FontFile" uid="uid://cx6m0j1w52jcs" path="res://assets/fonts/cairopixel.medium.ttf" id="objective_font"]
+[ext_resource type="FontFile" uid="uid://db21mhb185uok" path="res://assets/fonts/PixeloidSans-lxa3y.ttf" id="objective_font"]
 [ext_resource type="PackedScene" uid="uid://vn2x66vbqdkq" path="res://scenes/player/player.tscn" id="player"]
 [ext_resource type="Script" uid="uid://crxid8ttt0qmn" path="res://scripts/objects/home_entrance.gd" id="portal"]
 [ext_resource type="Script" uid="uid://cnn1ut866eli4" path="res://scripts/levels/guild.gd" id="script"]
 [ext_resource type="PackedScene" uid="uid://cwod1nsyu0vwn" path="res://scenes/objects/seasoned_thief.tscn" id="seasoned_thief"]
 [ext_resource type="Texture2D" uid="uid://dbjfg5wjheoir" path="res://assets/kenmi/buildings/House_Decor/BookShelves.png" id="shelves"]
+[ext_resource type="Script" uid="uid://cvenyowxnm78p" path="res://scripts/objects/dialogue_interactable.gd" id="shift_thought_script"]
 [ext_resource type="PackedScene" uid="uid://br6hxt40xq8t0" path="res://scenes/objects/locked_chest.tscn" id="test_chest"]
 [ext_resource type="Texture2D" uid="uid://3dx0q31yjm37" path="res://assets/kenmi/buildings/Houses_Interiors/Wood_Wall_Fillers.png" id="wall"]
 
@@ -98,6 +103,12 @@ texture = ExtResource("5_og3no")
 [sub_resource type="TileSet" id="TileSet_62wh0"]
 sources/0 = SubResource("TileSetAtlasSource_qarmx")
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_y0rpi"]
+load_path = "res://.godot/imported/furniture.png-21aa2007de760a63c181f3f85e97b249.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_r61eh"]
+load_path = "res://.godot/imported/Carpets.png-5e1178728ce2cc5456bbc3006ee9f3be.ctex"
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mtle0"]
 texture = ExtResource("3_q8rb4")
 0:0/0 = 0
@@ -150,9 +161,6 @@ texture = ExtResource("5_mtle0")
 [sub_resource type="TileSet" id="TileSet_sn8xv"]
 sources/0 = SubResource("TileSetAtlasSource_q8rb4")
 sources/2 = SubResource("TileSetAtlasSource_ti1sr")
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_r61eh"]
-load_path = "res://.godot/imported/Carpets.png-5e1178728ce2cc5456bbc3006ee9f3be.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0nokb"]
 load_path = "res://.godot/imported/Chairs.png-674e39a008f523097ed65496701708aa.ctex"
@@ -379,7 +387,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="GuildHeadShape"]
-size = Vector2(10, 6)
+size = Vector2(10, 2)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_62wh0"]
 atlas = ExtResource("guild_cabinet")
@@ -387,6 +395,42 @@ region = Rect2(128, 160, 32, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8tg3y"]
 size = Vector2(32, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bkbef"]
+atlas = ExtResource("25_uf7cb")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hhotw"]
+atlas = ExtResource("25_uf7cb")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0jpml"]
+atlas = ExtResource("25_uf7cb")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ti634"]
+atlas = ExtResource("25_uf7cb")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a6o5w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bkbef")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hhotw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0jpml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ti634")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 8.0
+}]
 
 [node name="Guild" type="Node2D" unique_id=465012151]
 script = ExtResource("script")
@@ -396,10 +440,11 @@ z_index = -5
 color = Color(0.07, 0.065, 0.09, 1)
 polygon = PackedVector2Array(-1000, -1000, 1000, -1000, 1000, 1000, -1000, 1000)
 
-[node name="Floor" type="TileMapLayer" parent="." unique_id=1210207307]
+[node name="Floor" type="TileMapLayer" parent="." unique_id=1210207307 groups=["footstep_surface"]]
 z_index = -3
 tile_map_data = PackedByteArray("AAACAAMAAAACAAAAAAACAAQAAAACAAAAAAACAAUAAAACAAAAAAACAAYAAAACAAAAAAACAAcAAAACAAAAAAACAAgAAAACAAAAAAADAAMAAAADAAAAAAADAAQAAAADAAAAAAADAAUAAAADAAAAAAADAAYAAAADAAAAAAADAAcAAAADAAAAAAADAAgAAAADAAAAAAAEAAMAAAACAAAAAAAEAAQAAAACAAAAAAAEAAUAAAACAAAAAAAEAAYAAAACAAAAAAAEAAcAAAACAAAAAAAEAAgAAAACAAAAAAAFAAMAAAADAAAAAAAFAAQAAAADAAAAAAAFAAUAAAADAAAAAAAFAAYAAAADAAAAAAAFAAcAAAADAAAAAAAFAAgAAAADAAAAAAAGAAMAAAABAAAAAAAGAAQAAAACAAAAAAAGAAUAAAACAAAAAAAGAAYAAAACAAAAAAAGAAcAAAACAAAAAAAGAAgAAAACAAAAAAAHAAMAAAAAAAAAAAAHAAQAAAADAAAAAAAHAAUAAAADAAAAAAAHAAYAAAADAAAAAAAHAAcAAAADAAAAAAAHAAgAAAADAAAAAAAIAAMAAAACAAAAAAAIAAQAAAACAAAAAAAIAAUAAAACAAAAAAAIAAYAAAACAAAAAAAIAAcAAAACAAAAAAAIAAgAAAACAAAAAAAIAAkAAAACAAAAAAAIAAoAAAACAAAAAAAIAAsAAAACAAAAAAAIAAwAAAACAAAAAAAJAAMAAAADAAAAAAAJAAQAAAADAAAAAAAJAAUAAAADAAAAAAAJAAYAAAADAAAAAAAJAAcAAAADAAAAAAAJAAgAAAADAAAAAAAJAAkAAAADAAAAAAAJAAoAAAADAAAAAAAJAAsAAAADAAAAAAAJAAwAAAADAAAAAAAKAAMAAAACAAAAAAAKAAQAAAACAAAAAAAKAAUAAAACAAAAAAAKAAYAAAACAAAAAAAKAAcAAAACAAAAAAAKAAgAAAACAAAAAAAKAAkAAAACAAAAAAAKAAoAAAACAAAAAAAKAAsAAAACAAAAAAAKAAwAAAACAAAAAAALAAMAAAADAAAAAAALAAQAAAADAAAAAAALAAUAAAADAAAAAAALAAYAAAADAAAAAAALAAcAAAADAAAAAAALAAgAAAADAAAAAAALAAkAAAADAAAAAAALAAoAAAADAAAAAAALAAsAAAADAAAAAAALAAwAAAADAAAAAAAMAAMAAAACAAAAAAAMAAQAAAACAAAAAAAMAAUAAAACAAAAAAAMAAYAAAACAAAAAAAMAAcAAAACAAAAAAAMAAgAAAACAAAAAAANAAMAAAADAAAAAAANAAQAAAADAAAAAAANAAUAAAADAAAAAAANAAYAAAADAAAAAAANAAcAAAADAAAAAAANAAgAAAADAAAAAAAOAAMAAAACAAAAAAAOAAQAAAACAAAAAAAOAAUAAAACAAAAAAAOAAYAAAACAAAAAAAOAAcAAAACAAAAAAAOAAgAAAACAAAAAAAPAAMAAAAAAAAAAAAPAAQAAAADAAAAAAAPAAUAAAADAAAAAAAPAAYAAAADAAAAAAAPAAcAAAADAAAAAAAPAAgAAAADAAAAAAAQAAMAAAACAAAAAAAQAAQAAAACAAAAAAAQAAUAAAACAAAAAAAQAAYAAAACAAAAAAAQAAcAAAACAAAAAAAQAAgAAAACAAAAAAARAAMAAAADAAAAAAARAAQAAAADAAAAAAARAAUAAAADAAAAAAARAAYAAAADAAAAAAARAAcAAAADAAAAAAARAAgAAAADAAAAAAA=")
 tile_set = SubResource("FloorTiles")
+metadata/footstep_surface = &"wood"
 
 [node name="BackWalls" type="TileMapLayer" parent="." unique_id=951508790]
 z_index = -2
@@ -411,16 +456,17 @@ position = Vector2(0, 8)
 tile_map_data = PackedByteArray("AAAHAAEAAAAAAAQAAAAHAAIAAAAAAAUAAAAMAAEAAAAAAAQAAAAMAAIAAAAAAAUAAAA=")
 tile_set = SubResource("TileSet_62wh0")
 
-[node name="Trim" type="TileMapLayer" parent="." unique_id=887973253]
-z_index = -1
-tile_map_data = PackedByteArray("AAABAAAAAAAAAAAAAAABAAEAAAAAAAEAAAABAAIAAAAAAAEAAAABAAMAAAAAAAEAAAABAAQAAAAAAAEAAAABAAUAAAAAAAEAAAABAAYAAAAAAAEAAAABAAcAAAAAAAEAAAABAAgAAAAAAAEAAAABAAkAAAAAAAIAAAACAAAAAAABAAAAAAACAAkAAAABAAIAAAADAAAAAAABAAAAAAADAAkAAAABAAIAAAAEAAAAAAABAAAAAAAEAAkAAAABAAIAAAAFAAAAAAABAAAAAAAFAAkAAAABAAIAAAAGAAAAAAABAAAAAAAGAAkAAAABAAIAAAAHAAAAAAABAAAAAAAHAAkAAQAAAAAAAAAHAAoAAAAAAAEAAAAHAAsAAAAAAAEAAAAHAAwAAAAAAAEAAAAHAA0AAAAAAAIAAAAIAAAAAAABAAAAAAAIAA0AAAABAAIAAAAJAAAAAAABAAAAAAAJAA0AAAABAAIAAAAKAAAAAAABAAAAAAAKAA0AAAABAAIAAAALAAAAAAABAAAAAAALAA0AAAABAAIAAAAMAAAAAAABAAAAAAAMAAkAAQABAAAAAAAMAAoAAAACAAEAAAAMAAsAAAACAAEAAAAMAAwAAAACAAEAAAAMAA0AAAACAAIAAAANAAAAAAABAAAAAAANAAkAAAABAAIAAAAOAAAAAAABAAAAAAAOAAkAAAABAAIAAAAPAAAAAAABAAAAAAAPAAkAAAABAAIAAAAQAAAAAAABAAAAAAAQAAkAAAABAAIAAAARAAAAAAABAAAAAAARAAkAAAABAAIAAAASAAAAAAACAAAAAAASAAEAAAACAAEAAAASAAIAAAACAAEAAAASAAMAAAACAAEAAAASAAQAAAACAAEAAAASAAUAAAACAAEAAAASAAYAAAACAAEAAAASAAcAAAACAAEAAAASAAgAAAACAAEAAAASAAkAAAACAAIAAAA=")
-tile_set = SubResource("TileSet_cffrq")
+[node name="Board" type="Sprite2D" parent="." unique_id=270634121]
+position = Vector2(160, 37)
+texture = ExtResource("7_y0rpi")
+region_enabled = true
+region_rect = Rect2(96, 48, 48, 32)
 
-[node name="InnerCorner" type="TileMapLayer" parent="Trim" unique_id=1041065810]
-z_index = -1
-tile_map_data = PackedByteArray("AAAHAAkAAAAAAAEAAAAMAAkAAAACAAEAAAA=")
-tile_set = SubResource("TileSet_sn8xv")
-collision_enabled = false
+[node name="Weapons" type="Sprite2D" parent="." unique_id=305149615]
+position = Vector2(275, 38)
+texture = SubResource("CompressedTexture2D_y0rpi")
+region_enabled = true
+region_rect = Rect2(224, 736, 16, 32)
 
 [node name="WaitingRug" type="Sprite2D" parent="." unique_id=130777715]
 z_index = -2
@@ -432,6 +478,17 @@ region_rect = Rect2(48, 400, 48, 48)
 [node name="World" type="Node2D" parent="." unique_id=1117394301]
 y_sort_enabled = true
 
+[node name="Trim" type="TileMapLayer" parent="World" unique_id=887973253]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAABAAAAAAAAAAAAAAABAAEAAAAAAAEAAAABAAIAAAAAAAEAAAABAAMAAAAAAAEAAAABAAQAAAAAAAEAAAABAAUAAAAAAAEAAAABAAYAAAAAAAEAAAABAAcAAAAAAAEAAAABAAgAAAAAAAEAAAABAAkAAAAAAAIAAAACAAAAAAABAAAAAAACAAkAAAABAAIAAAADAAAAAAABAAAAAAADAAkAAAABAAIAAAAEAAAAAAABAAAAAAAEAAkAAAABAAIAAAAFAAAAAAABAAAAAAAFAAkAAAABAAIAAAAGAAAAAAABAAAAAAAGAAkAAAABAAIAAAAHAAAAAAABAAAAAAAHAAkAAQAAAAAAAAAHAAoAAAAAAAEAAAAHAAsAAAAAAAEAAAAHAAwAAAAAAAEAAAAHAA0AAAAAAAIAAAAIAAAAAAABAAAAAAAIAA0AAAABAAIAAAAJAAAAAAABAAAAAAAJAA0AAAABAAIAAAAKAAAAAAABAAAAAAAKAA0AAAABAAIAAAALAAAAAAABAAAAAAALAA0AAAABAAIAAAAMAAAAAAABAAAAAAAMAAkAAQABAAAAAAAMAAoAAAACAAEAAAAMAAsAAAACAAEAAAAMAAwAAAACAAEAAAAMAA0AAAACAAIAAAANAAAAAAABAAAAAAANAAkAAAABAAIAAAAOAAAAAAABAAAAAAAOAAkAAAABAAIAAAAPAAAAAAABAAAAAAAPAAkAAAABAAIAAAAQAAAAAAABAAAAAAAQAAkAAAABAAIAAAARAAAAAAABAAAAAAARAAkAAAABAAIAAAASAAAAAAACAAAAAAASAAEAAAACAAEAAAASAAIAAAACAAEAAAASAAMAAAACAAEAAAASAAQAAAACAAEAAAASAAUAAAACAAEAAAASAAYAAAACAAEAAAASAAcAAAACAAEAAAASAAgAAAACAAEAAAASAAkAAAACAAIAAAA=")
+tile_set = SubResource("TileSet_cffrq")
+
+[node name="InnerCorner" type="TileMapLayer" parent="World/Trim" unique_id=1041065810]
+z_index = -1
+tile_map_data = PackedByteArray("AAAHAAkAAAAAAAEAAAAMAAkAAAACAAEAAAA=")
+tile_set = SubResource("TileSet_sn8xv")
+collision_enabled = false
+
 [node name="Wooden Chest" parent="World" unique_id=365326210 instance=ExtResource("test_chest")]
 unique_name_in_owner = true
 position = Vector2(233, 113)
@@ -439,6 +496,12 @@ position = Vector2(233, 113)
 [node name="Wooden Crate" parent="World" unique_id=759522462 instance=ExtResource("crate")]
 unique_name_in_owner = true
 position = Vector2(279, 69)
+
+[node name="Helmet" type="Sprite2D" parent="World/Wooden Crate" unique_id=1350979365]
+position = Vector2(1, -13)
+texture = ExtResource("7_y0rpi")
+region_enabled = true
+region_rect = Rect2(48, 16, 16, 16)
 
 [node name="WaitingChairLeft" type="StaticBody2D" parent="World" unique_id=1516349152]
 position = Vector2(51, 115)
@@ -475,6 +538,11 @@ autoplay = "default"
 visible = false
 position = Vector2(0, 14)
 shape = SubResource("RectangleShape2D_e2a7j")
+
+[node name="Crackle" type="AudioStreamPlayer2D" parent="World/Fireplace" unique_id=656383362]
+stream = ExtResource("12_pdbmo")
+autoplay = true
+max_distance = 250.0
 
 [node name="Anvil" type="StaticBody2D" parent="World" unique_id=1770668153]
 position = Vector2(201, 66)
@@ -532,6 +600,7 @@ shape = SubResource("RectangleShape2D_jrvya")
 
 [node name="ShiftableComponent" type="Node" parent="World/Wooden Keg" unique_id=120728364]
 script = ExtResource("keg_shiftable")
+highlight_mask = ExtResource("highlight_mask")
 
 [node name="ShiftArea" type="Area2D" parent="World/Wooden Keg" unique_id=1029008605 groups=["shiftable"]]
 position = Vector2(0, -3)
@@ -578,7 +647,7 @@ region_rect = Rect2(0, 0, 16, 32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Shelf" unique_id=452649666]
 visible = false
-position = Vector2(27, 1.5)
+position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_f3eku")
 
 [node name="GoldenChest" type="StaticBody2D" parent="World" unique_id=1536967847]
@@ -621,11 +690,12 @@ frame_progress = 0.45220008
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/GuildHeadBody" unique_id=694037807]
 visible = false
-position = Vector2(0, 2)
+position = Vector2(0, 4)
 shape = SubResource("GuildHeadShape")
 
 [node name="GuildHead" parent="World/GuildHeadBody" unique_id=909808271 instance=ExtResource("interaction")]
 unique_name_in_owner = true
+visible = false
 interaction_prompt = "Talk to guild head"
 is_character = true
 speaker_name = "Guild Head"
@@ -641,6 +711,11 @@ visible = false
 position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_8tg3y")
 
+[node name="Candle" type="AnimatedSprite2D" parent="World/Desk" unique_id=297203875]
+position = Vector2(9, -7)
+sprite_frames = SubResource("SpriteFrames_a6o5w")
+autoplay = "default"
+
 [node name="Exit" parent="World" unique_id=1263927286 instance=ExtResource("interaction")]
 unique_name_in_owner = true
 position = Vector2(160, 208)
@@ -648,12 +723,14 @@ script = ExtResource("portal")
 interaction_prompt = "Leave guild"
 
 [node name="Sprite2D" type="Sprite2D" parent="World/Exit" unique_id=219618743]
+z_index = 1
 position = Vector2(0, -4)
 texture = ExtResource("door")
 
 [node name="Player" parent="World" unique_id=1737750967 instance=ExtResource("player")]
 unique_name_in_owner = true
 position = Vector2(160, 179)
+metadata/_edit_lock_ = true
 
 [node name="EntranceSpawn" type="Marker2D" parent="." unique_id=1494746153]
 unique_name_in_owner = true
@@ -678,9 +755,16 @@ theme_override_colors/font_color = Color(1, 0.85, 0.45, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
-theme_override_constants/outline_size = 0
+theme_override_constants/outline_size = 1
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("objective_font")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 8
 horizontal_alignment = 2
 autowrap_mode = 2
+
+[node name="ShiftDiscoveryThought" type="Area2D" parent="." unique_id=1889224417]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("shift_thought_script")
+lines = Array[String](["That… wasn’t in the book.", "I should probably put this somewhere else."])

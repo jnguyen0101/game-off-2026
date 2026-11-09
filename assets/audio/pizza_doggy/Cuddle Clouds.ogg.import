@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://blkdlut2va80p"
+path="res://.godot/imported/Cuddle Clouds.ogg-f4b9d82cb21962e006cf635c30c9b5e2.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/pizza_doggy/Cuddle Clouds.ogg"
+dest_files=["res://.godot/imported/Cuddle Clouds.ogg-f4b9d82cb21962e006cf635c30c9b5e2.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

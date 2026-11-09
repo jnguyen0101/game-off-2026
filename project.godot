@@ -36,7 +36,7 @@ shiftable=""
 [gui]
 
 theme/custom="res://resources/ui_theme.tres"
-theme/custom_font="res://assets/fonts/cairopixel.medium.ttf"
+theme/custom_font="res://assets/fonts/PixeloidSans-lxa3y.ttf"
 
 [input]
 

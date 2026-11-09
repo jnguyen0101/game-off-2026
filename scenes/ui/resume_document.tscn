@@ -1,38 +1,27 @@
 [gd_scene format=3 uid="uid://by2kcxn8ugvvc"]
 
 [ext_resource type="Texture2D" uid="uid://43jx8aexskjx" path="res://assets/ui/resume_close.svg" id="close_icon"]
-[ext_resource type="FontFile" uid="uid://cx6m0j1w52jcs" path="res://assets/fonts/cairopixel.medium.ttf" id="font"]
+[ext_resource type="FontFile" uid="uid://db21mhb185uok" path="res://assets/fonts/PixeloidSans-lxa3y.ttf" id="font"]
+[ext_resource type="AudioStream" uid="uid://pgysafli1hyt" path="res://assets/audio/page_flip.mp3" id="page_flip"]
+[ext_resource type="StyleBox" uid="uid://dn66cymoy0a1w" path="res://assets/ui/resume_paper_style.tres" id="paper_style"]
 [ext_resource type="Script" uid="uid://bjiaobsiaj08i" path="res://scripts/player/resume_document.gd" id="script"]
 
 [sub_resource type="Theme" id="theme"]
 default_font = ExtResource("font")
-default_font_size = 10
+default_font_size = 6
+Button/constants/outline_size = 0
+Button/constants/shadow_outline_size = 0
 Label/colors/font_color = Color(0.2, 0.14, 0.1, 1)
+Label/constants/outline_size = 0
+Label/constants/shadow_outline_size = 0
+RichTextLabel/constants/outline_size = 0
+RichTextLabel/constants/shadow_outline_size = 0
 
-[sub_resource type="StyleBoxFlat" id="paper"]
-bg_color = Color(0.94, 0.88, 0.72, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.48, 0.32, 0.18, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-anti_aliasing = false
-
-[sub_resource type="StyleBoxFlat" id="CloseButtonStyle"]
+[sub_resource type="StyleBoxEmpty" id="CloseIconStyle"]
 content_margin_left = 2.0
 content_margin_top = 1.0
 content_margin_right = 2.0
 content_margin_bottom = 1.0
-bg_color = Color(0.2, 0.14, 0.1, 0.25)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-anti_aliasing = false
 
 [sub_resource type="StyleBoxEmpty" id="CloseButtonFocus"]
 
@@ -48,6 +37,10 @@ grow_vertical = 2
 theme = SubResource("theme")
 script = ExtResource("script")
 
+[node name="PageFlipSound" type="AudioStreamPlayer" parent="." unique_id=2007354762]
+stream = ExtResource("page_flip")
+volume_db = -8.0
+
 [node name="Dim" type="ColorRect" parent="." unique_id=158388531]
 layout_mode = 1
 anchors_preset = 15
@@ -58,6 +51,7 @@ grow_vertical = 2
 color = Color(0.02, 0.015, 0.03, 0.75)
 
 [node name="Paper" type="PanelContainer" parent="." unique_id=923970316]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -65,19 +59,19 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -61.5
-offset_top = -75.0
+offset_top = -80.0
 offset_right = 61.5
-offset_bottom = 75.0
+offset_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("paper")
+theme_override_styles/panel = ExtResource("paper_style")
 
 [node name="Margin" type="MarginContainer" parent="Paper" unique_id=1875145970]
 layout_mode = 2
 theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 4
+theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 6
-theme_override_constants/margin_bottom = 4
+theme_override_constants/margin_bottom = 2
 
 [node name="Column" type="VBoxContainer" parent="Paper/Margin" unique_id=41182008]
 layout_mode = 2
@@ -89,25 +83,28 @@ layout_mode = 2
 [node name="Title" type="Label" parent="Paper/Margin/Column/Header" unique_id=2129622167]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 8
 text = "OLIVER FILCH"
 
 [node name="Close" type="Button" parent="Paper/Margin/Column/Header" unique_id=2064643829]
-self_modulate = Color(1, 1, 1, 0.7)
-custom_minimum_size = Vector2(12, 12)
+custom_minimum_size = Vector2(13, 13)
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 9
-theme_override_styles/normal = SubResource("CloseButtonStyle")
-theme_override_styles/pressed = SubResource("CloseButtonStyle")
-theme_override_styles/hover = SubResource("CloseButtonStyle")
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 5
+theme_override_styles/normal = SubResource("CloseIconStyle")
+theme_override_styles/pressed = SubResource("CloseIconStyle")
+theme_override_styles/hover = SubResource("CloseIconStyle")
 theme_override_styles/focus = SubResource("CloseButtonFocus")
 icon = ExtResource("close_icon")
 icon_alignment = 1
 
 [node name="Role" type="Label" parent="Paper/Margin/Column" unique_id=2078371938]
 layout_mode = 2
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 5
 text = "APPRENTICE THIEF"
 
 [node name="Rule" type="ColorRect" parent="Paper/Margin/Column" unique_id=984821471]
@@ -116,58 +113,60 @@ layout_mode = 2
 mouse_filter = 2
 color = Color(0.48, 0.32, 0.18, 0.5)
 
-[node name="BodyScroll" type="ScrollContainer" parent="Paper/Margin/Column"]
+[node name="BodyTopSpacing" type="Control" parent="Paper/Margin/Column" unique_id=682088067]
+custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
-size_flags_vertical = 3
-horizontal_scroll_mode = 0
-vertical_scroll_mode = 1
+mouse_filter = 2
 
-[node name="Body" type="VBoxContainer" parent="Paper/Margin/Column/BodyScroll" unique_id=117672015]
+[node name="Body" type="VBoxContainer" parent="Paper/Margin/Column" unique_id=117672015]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 8
+theme_override_constants/separation = 5
 
-[node name="AboutMe" type="VBoxContainer" parent="Paper/Margin/Column/BodyScroll/Body" unique_id=1840669809]
+[node name="AboutMe" type="VBoxContainer" parent="Paper/Margin/Column/Body" unique_id=1840669809]
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = 1
 
-[node name="Heading" type="Label" parent="Paper/Margin/Column/BodyScroll/Body/AboutMe" unique_id=744468680]
+[node name="Heading" type="Label" parent="Paper/Margin/Column/Body/AboutMe" unique_id=744468680]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.42, 0.23, 0.12, 1)
 text = "ABOUT ME"
 
-[node name="Text" type="Label" parent="Paper/Margin/Column/BodyScroll/Body/AboutMe" unique_id=1228333410]
+[node name="Text" type="Label" parent="Paper/Margin/Column/Body/AboutMe" unique_id=1228333410]
 layout_mode = 2
+theme_override_constants/line_spacing = 3
 theme_override_constants/paragraph_spacing = -8
 text = "Aspiring thief seeking a chance to learn. Very enthusiastic."
 autowrap_mode = 2
 
-[node name="Experience" type="VBoxContainer" parent="Paper/Margin/Column/BodyScroll/Body" unique_id=466129630]
+[node name="Experience" type="VBoxContainer" parent="Paper/Margin/Column/Body" unique_id=466129630]
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = 1
 
-[node name="Heading" type="Label" parent="Paper/Margin/Column/BodyScroll/Body/Experience" unique_id=1941093910]
+[node name="Heading" type="Label" parent="Paper/Margin/Column/Body/Experience" unique_id=1941093910]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.42, 0.23, 0.12, 1)
 text = "EXPERIENCE"
 
-[node name="Text" type="Label" parent="Paper/Margin/Column/BodyScroll/Body/Experience" unique_id=821671057]
+[node name="Text" type="Label" parent="Paper/Margin/Column/Body/Experience" unique_id=821671057]
 layout_mode = 2
+theme_override_constants/line_spacing = 3
 theme_override_constants/paragraph_spacing = -8
 text = "No professional work. Lockpicking: Chapter One (almost done)."
 autowrap_mode = 2
 
-[node name="Skills" type="VBoxContainer" parent="Paper/Margin/Column/BodyScroll/Body" unique_id=1196219740]
+[node name="Skills" type="VBoxContainer" parent="Paper/Margin/Column/Body" unique_id=1196219740]
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = 1
 
-[node name="Heading" type="Label" parent="Paper/Margin/Column/BodyScroll/Body/Skills" unique_id=1292900568]
+[node name="Heading" type="Label" parent="Paper/Margin/Column/Body/Skills" unique_id=1292900568]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.42, 0.23, 0.12, 1)
 text = "SKILLS"
 
-[node name="Text" type="Label" parent="Paper/Margin/Column/BodyScroll/Body/Skills" unique_id=579782394]
+[node name="Text" type="Label" parent="Paper/Margin/Column/Body/Skills" unique_id=579782394]
 layout_mode = 2
+theme_override_constants/line_spacing = 3
 theme_override_constants/paragraph_spacing = -8
 text = "Enthusiastic. Very enthusiastic. And enthusiastic."
 autowrap_mode = 2

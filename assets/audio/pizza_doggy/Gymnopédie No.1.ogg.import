@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bsixu7o84urai"
+path="res://.godot/imported/Gymnopédie No.1.ogg-7dbc7eb84c27c420781f6b8157876500.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/pizza_doggy/Gymnopédie No.1.ogg"
+dest_files=["res://.godot/imported/Gymnopédie No.1.ogg-7dbc7eb84c27c420781f6b8157876500.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

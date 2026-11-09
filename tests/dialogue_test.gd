@@ -9,6 +9,7 @@ func run_test() -> void:
 	root.size = Vector2i(320, 180)
 	var player = load("res://scenes/player/player.tscn").instantiate()
 	root.add_child(player)
+	player.dialogue_box.characters_per_second = 0.0
 	var target = load("res://scenes/objects/dialogue_interactable.tscn").instantiate()
 	var lines: Array[String] = ["First page", "Last page"]
 	target.lines = lines

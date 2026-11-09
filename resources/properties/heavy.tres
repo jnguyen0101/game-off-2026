@@ -1,15 +1,11 @@
 [gd_resource type="Resource" script_class="ShiftProperty" format=3 uid="uid://5xj3acw0sn6j"]
 
 [ext_resource type="Script" uid="uid://c1towhf3y0gf3" path="res://scripts/objects/shift_property.gd" id="1_7b14l"]
-[ext_resource type="Texture2D" uid="uid://cdtdwy02e8k6f" path="res://assets/kenmi/icons/Outline/Resources_Icons_Outline.png" id="icon_sheet"]
-
-[sub_resource type="AtlasTexture" id="PropertyIcon"]
-atlas = ExtResource("icon_sheet")
-region = Rect2(0, 0, 16, 16)
+[ext_resource type="Texture2D" path="res://assets/ui/property_icons/heavy.png" id="property_icon"]
 
 [resource]
 script = ExtResource("1_7b14l")
 property_name = "HEAVY"
 description = "Makes something difficult to move or lift."
-icon = SubResource("PropertyIcon")
+icon = ExtResource("property_icon")
 metadata/_custom_type_script = "uid://c1towhf3y0gf3"

@@ -1,0 +1,856 @@
+[gd_scene format=4 uid="uid://f6uc670rxn14"]
+
+[ext_resource type="Texture2D" uid="uid://08k83lfgsj2l" path="res://assets/kenmi/buildings/Houses_Interiors/Brick_Wall_Fillers.png" id="4_lrkqe"]
+[ext_resource type="Texture2D" uid="uid://drr0hliu448qp" path="res://assets/trislin/floors_walls.png" id="6_vl5oj"]
+[ext_resource type="Texture2D" uid="uid://er85adlh4ldg" path="res://assets/trislin/decorations.png" id="8_r4ttc"]
+[ext_resource type="Texture2D" uid="uid://bncv248310gf0" path="res://assets/kenmi/buildings/House_Decor/Kitchen.png" id="8_rt4d4"]
+[ext_resource type="Texture2D" uid="uid://dbjfg5wjheoir" path="res://assets/kenmi/buildings/House_Decor/BookShelves.png" id="9_macpn"]
+[ext_resource type="Texture2D" uid="uid://bn40qvm66ki8b" path="res://assets/kenmi/buildings/House_Decor/Chairs.png" id="9_oj0x3"]
+[ext_resource type="Texture2D" uid="uid://b6548jblxrxe7" path="res://assets/decor/inn_jukebox.png" id="14_oj0x3"]
+[ext_resource type="AudioStream" uid="uid://bsixu7o84urai" path="res://assets/audio/pizza_doggy/Gymnopédie No.1.ogg" id="17_rqplm"]
+[ext_resource type="AudioStream" uid="uid://dy18807xo7ucf" path="res://assets/audio/radio_button_click.mp3" id="button_click"]
+[ext_resource type="PackedScene" uid="uid://beku6g27esqt5" path="res://scenes/objects/dialogue_interactable.tscn" id="dialogue"]
+[ext_resource type="Texture2D" uid="uid://8v11woodwkop" path="res://assets/kenmi/buildings/House_Decor/door.tres" id="door"]
+[ext_resource type="Texture2D" uid="uid://hys5kbmkvyg1" path="res://assets/kenmi/buildings/Houses_Interiors/Wood_Floor_Tiles.png" id="floor"]
+[ext_resource type="FontFile" uid="uid://db21mhb185uok" path="res://assets/fonts/PixeloidSans-lxa3y.ttf" id="font"]
+[ext_resource type="PackedScene" uid="uid://dulxjpd27tgby" path="res://scenes/objects/innkeeper.tscn" id="innkeeper"]
+[ext_resource type="Texture2D" uid="uid://d0xqu344j6foi" path="res://assets/kenmi/buildings/House_Decor/House_Plants.png" id="inn_plants"]
+[ext_resource type="Script" uid="uid://boolt478pyvrk" path="res://scripts/objects/radio_interaction.gd" id="music_toggle"]
+[ext_resource type="PackedScene" uid="uid://vn2x66vbqdkq" path="res://scenes/player/player.tscn" id="player"]
+[ext_resource type="Script" uid="uid://crxid8ttt0qmn" path="res://scripts/objects/home_entrance.gd" id="portal"]
+[ext_resource type="Script" uid="uid://cqg6tp00kjy7l" path="res://scripts/levels/inn.gd" id="script"]
+[ext_resource type="Texture2D" uid="uid://drsxinpx8r8ip" path="res://assets/kenmi/buildings/Houses_Interiors/Interior_Walls.png" id="trim"]
+[ext_resource type="Texture2D" uid="uid://3dx0q31yjm37" path="res://assets/kenmi/buildings/Houses_Interiors/Wood_Wall_Fillers.png" id="wall"]
+[ext_resource type="Texture2D" uid="uid://11lvvis8k6g4" path="res://assets/kenmi/buildings/House_Decor/windows.png" id="windows"]
+
+[sub_resource type="TileSetAtlasSource" id="FloorAtlas"]
+texture = ExtResource("floor")
+0:2/0 = 0
+1:2/0 = 0
+6:2/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+7:2/0 = 0
+6:0/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+7:0/0 = 0
+4:0/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+5:0/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+
+[sub_resource type="TileSet" id="FloorTiles"]
+sources/0 = SubResource("FloorAtlas")
+
+[sub_resource type="TileSetAtlasSource" id="WallAtlas"]
+texture = ExtResource("wall")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ywmij"]
+texture = ExtResource("4_lrkqe")
+0:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+1:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ywyo4"]
+texture = ExtResource("trim")
+5:3/0 = 0
+5:4/0 = 0
+5:5/0 = 0
+12:3/0 = 0
+12:4/0 = 0
+12:5/0 = 0
+13:3/0 = 0
+13:4/0 = 0
+13:5/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r4ttc"]
+texture = ExtResource("6_vl5oj")
+4:15/0 = 0
+4:16/0 = 0
+5:16/0 = 0
+5:15/0 = 0
+4:13/0 = 0
+4:14/0 = 0
+5:14/0 = 0
+5:13/0 = 0
+
+[sub_resource type="TileSet" id="WallTiles"]
+sources/0 = SubResource("WallAtlas")
+sources/1 = SubResource("TileSetAtlasSource_ywmij")
+sources/2 = SubResource("TileSetAtlasSource_ywyo4")
+sources/3 = SubResource("TileSetAtlasSource_r4ttc")
+
+[sub_resource type="TileSetAtlasSource" id="TrimAtlas"]
+texture = ExtResource("trim")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+
+[sub_resource type="TileSet" id="TrimTiles"]
+sources/0 = SubResource("TrimAtlas")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_macpn"]
+texture = ExtResource("8_rt4d4")
+19:5/0 = 0
+19:6/0 = 0
+19:6/0/y_sort_origin = 12
+19:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+19:7/0 = 0
+19:7/0/y_sort_origin = -4
+19:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+20:7/0 = 0
+20:7/0/y_sort_origin = -4
+20:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+21:7/0 = 0
+21:7/0/y_sort_origin = -4
+21:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+22:7/0 = 0
+22:7/0/y_sort_origin = -4
+22:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+23:7/0 = 0
+23:7/0/y_sort_origin = -4
+23:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+23:6/0 = 0
+23:6/0/y_sort_origin = 12
+23:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+23:5/0 = 0
+17:2/0 = 0
+17:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+17:1/0 = 0
+17:1/0/y_sort_origin = 16
+20:6/0 = 0
+20:6/0/y_sort_origin = 12
+22:8/0 = 0
+21:6/0 = 0
+21:6/0/y_sort_origin = 12
+22:6/0 = 0
+22:6/0/y_sort_origin = 12
+17:5/0 = 0
+17:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+17:4/0 = 0
+17:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+17:3/0 = 0
+17:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+17:7/0 = 0
+17:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+17:6/0 = 0
+17:6/0/y_sort_origin = 16
+
+[sub_resource type="TileSet" id="TileSet_sn8xv"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_macpn")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0tslu"]
+texture = ExtResource("9_oj0x3")
+12:9/0 = 0
+12:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-3.910962, 6.0189986, 3.926774, 6.0076275, 4.0773864, -3.966437, -4.077386, -3.966437)
+
+[sub_resource type="TileSet" id="TileSet_62wh0"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_0tslu")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gkgqb"]
+load_path = "res://.godot/imported/Kitchen_Furniture.png-29b75fca30b7795c71134d32421a2529.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vl5oj"]
+size = Vector2(14, 29)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vl5oj"]
+load_path = "res://.godot/imported/decorations.png-b0a977eaa8ff0f01deb794203e86c3fa.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r4ttc"]
+size = Vector2(30, 35)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_t1ea6"]
+load_path = "res://.godot/imported/Indoor_Decor.png-ec0fc08fc0a1ad0d9f92916f6b79d271.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sn8xv"]
+size = Vector2(14, 29)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_oj0x3"]
+load_path = "res://.godot/imported/Indoor_Decor.png-ec0fc08fc0a1ad0d9f92916f6b79d271.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0tslu"]
+size = Vector2(14, 23)
+
+[sub_resource type="RectangleShape2D" id="PlantPot"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rqplm"]
+size = Vector2(16, 24)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8v3i5"]
+load_path = "res://.godot/imported/Tables.png-d2d1975e508d6afcb93af99f792fdfa6.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e2a7j"]
+size = Vector2(48, 24)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hedv2"]
+load_path = "res://.godot/imported/decorations.png-b0a977eaa8ff0f01deb794203e86c3fa.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8v3i5"]
+size = Vector2(30, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a6o5w"]
+size = Vector2(12, 8)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lrkqe"]
+load_path = "res://.godot/imported/Chairs.png-674e39a008f523097ed65496701708aa.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lrkqe"]
+size = Vector2(12, 10)
+
+[sub_resource type="RectangleShape2D" id="NorthWall"]
+size = Vector2(256, 48)
+
+[sub_resource type="RectangleShape2D" id="WestWall"]
+size = Vector2(16, 240)
+
+[sub_resource type="RectangleShape2D" id="EastWall"]
+size = Vector2(16, 240)
+
+[sub_resource type="RectangleShape2D" id="SouthWall"]
+size = Vector2(288, 16)
+
+[node name="Inn" type="Node2D" unique_id=1499931458]
+script = ExtResource("script")
+
+[node name="Background" type="Polygon2D" parent="." unique_id=896247461]
+z_index = -5
+color = Color(0.07, 0.045, 0.045, 1)
+polygon = PackedVector2Array(-1000, -1000, 1000, -1000, 1000, 1000, -1000, 1000)
+
+[node name="Floor" type="TileMapLayer" parent="." unique_id=1078075732 groups=["footstep_surface"]]
+z_index = -3
+tile_map_data = PackedByteArray("AAACAAQAAAAAAAIAAAADAAQAAAABAAMAAAAEAAQAAAAAAAIAAAAFAAQAAAABAAIAAAAGAAQAAAAAAAIAAAAHAAQAAAABAAIAAAAIAAQAAAAAAAIAAAAJAAQAAAABAAIAAAAKAAQAAAAAAAIAAAALAAQAAAABAAIAAAAMAAQAAAAAAAMAAAANAAQAAAABAAIAAAAOAAQAAAAAAAIAAAAPAAQAAAABAAIAAAAQAAQAAAAAAAIAAAARAAQAAAABAAIAAAACAAUAAAAAAAIAAAADAAUAAAABAAIAAAAEAAUAAAAAAAIAAAAFAAUAAAABAAIAAAAGAAUAAAAAAAIAAAAHAAUAAAAAAAMAAAAIAAUAAAAAAAIAAAAJAAUAAAABAAIAAAAKAAUAAAAAAAIAAAALAAUAAAABAAIAAAAMAAUAAAAAAAIAAAANAAUAAAABAAIAAAAOAAUAAAAAAAIAAAAPAAUAAAABAAIAAAAQAAUAAAAAAAIAAAARAAUAAAAAAAMAAAACAAYAAAAAAAMAAAADAAYAAAABAAIAAAAEAAYAAAAAAAIAAAAFAAYAAAABAAIAAAAGAAYAAAAAAAIAAAAHAAYAAAABAAIAAAAIAAYAAAAAAAIAAAAJAAYAAAABAAIAAAAKAAYAAAABAAMAAAALAAYAAAABAAIAAAAMAAYAAAAAAAIAAAANAAYAAAABAAIAAAAOAAYAAAAAAAIAAAAPAAYAAAABAAIAAAAQAAYAAAAAAAIAAAARAAYAAAABAAIAAAACAAcAAAAAAAIAAAADAAcAAAABAAIAAAAEAAcAAAAAAAIAAAAFAAcAAAABAAIAAAAGAAcAAAAAAAIAAAAHAAcAAAABAAIAAAAIAAcAAAAAAAMAAAAJAAcAAAABAAIAAAAKAAcAAAAAAAIAAAALAAcAAAABAAIAAAAMAAcAAAAAAAIAAAANAAcAAAABAAIAAAAOAAcAAAAAAAIAAAAPAAcAAAABAAMAAAAQAAcAAAAAAAMAAAARAAcAAAABAAIAAAACAAgAAAAAAAIAAAADAAgAAAABAAIAAAAEAAgAAAAAAAIAAAAFAAgAAAABAAIAAAAGAAgAAAAAAAIAAAAHAAgAAAABAAIAAAAIAAgAAAAAAAIAAAAJAAgAAAABAAIAAAAKAAgAAAAAAAIAAAALAAgAAAABAAIAAAAMAAgAAAAAAAMAAAANAAgAAAABAAMAAAAOAAgAAAAAAAIAAAAPAAgAAAABAAIAAAAQAAgAAAAAAAIAAAARAAgAAAABAAIAAAACAAkAAAAAAAIAAAADAAkAAAAAAAMAAAAEAAkAAAAAAAIAAAAFAAkAAAABAAMAAAAGAAkAAAAAAAIAAAAHAAkAAAABAAIAAAAIAAkAAAAAAAIAAAAJAAkAAAABAAIAAAAKAAkAAAAAAAMAAAALAAkAAAABAAIAAAAMAAkAAAAAAAIAAAANAAkAAAABAAIAAAAOAAkAAAAAAAIAAAAPAAkAAAABAAIAAAAQAAkAAAAAAAIAAAARAAkAAAABAAIAAAACAAoAAAAAAAIAAAADAAoAAAABAAIAAAAEAAoAAAAAAAIAAAAFAAoAAAABAAIAAAAGAAoAAAAAAAIAAAAHAAoAAAAAAAIAAAAIAAoAAAAAAAIAAAAJAAoAAAABAAIAAAAKAAoAAAAAAAIAAAALAAoAAAABAAIAAAAMAAoAAAAAAAMAAAANAAoAAAABAAIAAAAOAAoAAAAAAAIAAAAPAAoAAAABAAIAAAAQAAoAAAAAAAMAAAARAAoAAAABAAIAAAACAAsAAAAAAAIAAAADAAsAAAABAAIAAAAEAAsAAAAAAAIAAAAFAAsAAAABAAIAAAAGAAsAAAAAAAIAAAAHAAsAAAABAAMAAAAIAAsAAAAAAAIAAAAJAAsAAAABAAIAAAAKAAsAAAAAAAIAAAALAAsAAAABAAIAAAAMAAsAAAAAAAIAAAANAAsAAAABAAIAAAAOAAsAAAAAAAIAAAAPAAsAAAABAAIAAAAQAAsAAAAAAAIAAAARAAsAAAABAAMAAAACAAwAAAAAAAIAAAADAAwAAAABAAIAAAAEAAwAAAAAAAIAAAAFAAwAAAABAAMAAAAGAAwAAAAAAAIAAAAHAAwAAAABAAIAAAAIAAwAAAAAAAIAAAAJAAwAAAABAAIAAAAKAAwAAAAAAAIAAAALAAwAAAAAAAMAAAAMAAwAAAAAAAIAAAANAAwAAAABAAIAAAAOAAwAAAAAAAIAAAAPAAwAAAABAAIAAAAQAAwAAAAAAAIAAAARAAwAAAABAAMAAAACAA0AAAAAAAIAAAADAA0AAAABAAMAAAAEAA0AAAAAAAIAAAAFAA0AAAABAAIAAAAGAA0AAAAAAAIAAAAHAA0AAAAAAAMAAAAIAA0AAAAAAAIAAAAJAA0AAAABAAIAAAAKAA0AAAAAAAIAAAALAA0AAAABAAIAAAAMAA0AAAAAAAIAAAANAA0AAAABAAIAAAAOAA0AAAABAAMAAAAPAA0AAAABAAIAAAAQAA0AAAAAAAIAAAARAA0AAAABAAIAAAA=")
+tile_set = SubResource("FloorTiles")
+collision_enabled = false
+metadata/footstep_surface = &"wood"
+
+[node name="BackWalls" type="TileMapLayer" parent="." unique_id=1917127652]
+z_index = -2
+tile_map_data = PackedByteArray("AAACAAEAAgAFAAMAAAADAAEAAgAFAAMAAAAEAAEAAgAMAAMAAAAFAAEAAgAFAAMAAAAGAAEAAgAFAAMAAAAHAAEAAgANAAMAAAAIAAEAAgAFAAMAAAAJAAEAAgAFAAMAAAAKAAEAAgAFAAMAAAALAAEAAgAFAAMAAAAMAAEAAgAMAAMAAAANAAEAAgAFAAMAAAAOAAEAAgAFAAMAAAAPAAEAAgANAAMAAAAQAAEAAgAFAAMAAAARAAEAAgAFAAMAAAACAAIAAgAFAAQAAAADAAIAAgAFAAQAAAAEAAIAAgAMAAQAAAAFAAIAAgAFAAQAAAAGAAIAAgAFAAQAAAAHAAIAAgANAAQAAAAIAAIAAgAFAAQAAAAJAAIAAgAFAAQAAAAKAAIAAgAFAAQAAAALAAIAAgAFAAQAAAAMAAIAAgAMAAQAAAANAAIAAgAFAAQAAAAOAAIAAgAFAAQAAAAPAAIAAgANAAQAAAAQAAIAAgAFAAQAAAARAAIAAgAFAAQAAAACAAMAAgAFAAUAAAADAAMAAgAFAAUAAAAEAAMAAgAMAAUAAAAFAAMAAgAFAAUAAAAGAAMAAgAFAAUAAAAHAAMAAgANAAUAAAAIAAMAAgAFAAUAAAAJAAMAAgAFAAUAAAAKAAMAAgAFAAUAAAALAAMAAgAFAAUAAAAMAAMAAgAMAAUAAAANAAMAAgAFAAUAAAAOAAMAAgAFAAUAAAAPAAMAAgANAAUAAAAQAAMAAgAFAAUAAAARAAMAAgAFAAUAAAA=")
+tile_set = SubResource("WallTiles")
+collision_enabled = false
+
+[node name="WestWindow" type="Sprite2D" parent="." unique_id=1026760591]
+z_index = -1
+position = Vector2(96, 40)
+texture = ExtResource("windows")
+region_enabled = true
+region_rect = Rect2(0, 64, 16, 32)
+
+[node name="EastWindow" type="Sprite2D" parent="." unique_id=417945103]
+z_index = -1
+position = Vector2(224, 40)
+texture = ExtResource("windows")
+region_enabled = true
+region_rect = Rect2(0, 64, 16, 32)
+
+[node name="Stairs" type="Sprite2D" parent="." unique_id=1076128012]
+position = Vector2(48, 48)
+texture = ExtResource("6_vl5oj")
+region_enabled = true
+region_rect = Rect2(64, 240, 32, 32)
+
+[node name="Mugs" type="Node2D" parent="." unique_id=1592268010]
+
+[node name="Mug1" type="Sprite2D" parent="Mugs" unique_id=1247398837]
+z_index = 1
+position = Vector2(111, 105)
+texture = ExtResource("8_r4ttc")
+region_enabled = true
+region_rect = Rect2(80, 112, 16, 16)
+
+[node name="Mug2" type="Sprite2D" parent="Mugs" unique_id=369946598]
+z_index = 1
+position = Vector2(188, 104)
+texture = ExtResource("8_r4ttc")
+region_enabled = true
+region_rect = Rect2(80, 112, 16, 16)
+
+[node name="Mug3" type="Sprite2D" parent="Mugs" unique_id=1911959951]
+z_index = 1
+position = Vector2(210, 105)
+texture = ExtResource("8_r4ttc")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(80, 112, 16, 16)
+
+[node name="World" type="Node2D" parent="." unique_id=341924083]
+y_sort_enabled = true
+
+[node name="Trim" type="TileMapLayer" parent="World" unique_id=327849458]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAABAAAAAAAAAAAAAAACAAAAAAABAAAAAAADAAAAAAABAAAAAAAEAAAAAAABAAAAAAAFAAAAAAABAAAAAAAGAAAAAAABAAAAAAAHAAAAAAABAAAAAAAIAAAAAAABAAAAAAAJAAAAAAABAAAAAAAKAAAAAAABAAAAAAALAAAAAAABAAAAAAAMAAAAAAABAAAAAAANAAAAAAABAAAAAAAOAAAAAAABAAAAAAAPAAAAAAABAAAAAAAQAAAAAAABAAAAAAARAAAAAAABAAAAAAASAAAAAAACAAAAAAABAAEAAAAAAAEAAAASAAEAAAACAAEAAAABAAIAAAAAAAEAAAASAAIAAAACAAEAAAABAAMAAAAAAAEAAAASAAMAAAACAAEAAAABAAQAAAAAAAEAAAASAAQAAAACAAEAAAABAAUAAAAAAAEAAAASAAUAAAACAAEAAAABAAYAAAAAAAEAAAASAAYAAAACAAEAAAABAAcAAAAAAAEAAAASAAcAAAACAAEAAAABAAgAAAAAAAEAAAASAAgAAAACAAEAAAABAAkAAAAAAAEAAAASAAkAAAACAAEAAAABAAoAAAAAAAEAAAASAAoAAAACAAEAAAABAAsAAAAAAAEAAAASAAsAAAACAAEAAAABAAwAAAAAAAEAAAASAAwAAAACAAEAAAABAA0AAAAAAAEAAAASAA0AAAACAAEAAAABAA4AAAAAAAIAAAACAA4AAAABAAIAAAADAA4AAAABAAIAAAAEAA4AAAABAAIAAAAFAA4AAAABAAIAAAAGAA4AAAABAAIAAAAHAA4AAAABAAIAAAAIAA4AAAABAAIAAAAJAA4AAAABAAIAAAAKAA4AAAABAAIAAAALAA4AAAABAAIAAAAMAA4AAAABAAIAAAANAA4AAAABAAIAAAAOAA4AAAABAAIAAAAPAA4AAAABAAIAAAAQAA4AAAABAAIAAAARAA4AAAABAAIAAAASAA4AAAACAAIAAAA=")
+tile_set = SubResource("TrimTiles")
+collision_enabled = false
+
+[node name="Innkeeper" parent="World" unique_id=1036639756 instance=ExtResource("innkeeper")]
+position = Vector2(162, 97)
+
+[node name="BarCounters" type="TileMapLayer" parent="World" unique_id=922468530]
+y_sort_enabled = true
+position = Vector2(56, 136)
+tile_map_data = PackedByteArray("AAACAP7/AAATAAcAAAAKAP7/AAAXAAcAAAADAP7/AAAUAAcAAAAJAP7/AAAUAAcAAAAIAP7/AAAUAAcAAAAHAP7/AAAUAAcAAAAGAP7/AAAUAAcAAAAFAP7/AAAUAAcAAAAEAP7/AAAUAAcAAAADAP3/AAAUAAYAAAAEAP3/AAAUAAYAAAAFAP3/AAAUAAYAAAAGAP3/AAAUAAYAAAAHAP3/AAAUAAYAAAAIAP3/AAAUAAYAAAAJAP3/AAAUAAYAAAAKAPv/AAARAAEAAAAKAPz/AAARAAMAAAAKAP3/AAAXAAYAAAACAP3/AAATAAYAAAA=")
+tile_set = SubResource("TileSet_sn8xv")
+
+[node name="BarCountersEdges" type="TileMapLayer" parent="World" unique_id=346218043]
+z_index = -1
+position = Vector2(56, 136)
+tile_map_data = PackedByteArray("AAACAPz/AAARAAMAAAACAPv/AAARAAIAAAACAPr/AAARAAEAAAA=")
+tile_set = SubResource("TileSet_sn8xv")
+
+[node name="BarStools" type="TileMapLayer" parent="World" unique_id=2029640055]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAAGAAcAAAAMAAkAAAAHAAcAAAAMAAkAAAAIAAcAAAAMAAkAAAANAAcAAAAMAAkAAAAMAAcAAAAMAAkAAAALAAcAAAAMAAkAAAA=")
+tile_set = SubResource("TileSet_62wh0")
+
+[node name="Fridge" type="StaticBody2D" parent="World" unique_id=1789669436]
+position = Vector2(114, 57)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Fridge" unique_id=812959596]
+texture = SubResource("CompressedTexture2D_gkgqb")
+region_enabled = true
+region_rect = Rect2(0, 64, 16, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Fridge" unique_id=517070642]
+visible = false
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_vl5oj")
+
+[node name="Shelf" type="StaticBody2D" parent="World" unique_id=352634253]
+position = Vector2(156, 54)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Shelf" unique_id=276652884]
+texture = ExtResource("9_macpn")
+region_enabled = true
+region_rect = Rect2(32, 72, 32, 40)
+
+[node name="Bottles" type="Node2D" parent="World/Shelf" unique_id=1755187002]
+
+[node name="Bottle1" type="Sprite2D" parent="World/Shelf/Bottles" unique_id=1319346710]
+position = Vector2(-12, -11)
+texture = SubResource("CompressedTexture2D_vl5oj")
+centered = false
+region_enabled = true
+region_rect = Rect2(96, 96, 16, 16)
+
+[node name="Bottle2" type="Sprite2D" parent="World/Shelf/Bottles" unique_id=656867218]
+position = Vector2(-4, -10)
+texture = SubResource("CompressedTexture2D_vl5oj")
+centered = false
+region_enabled = true
+region_rect = Rect2(112, 112, 16, 16)
+
+[node name="Bottle3" type="Sprite2D" parent="World/Shelf/Bottles" unique_id=1086627474]
+position = Vector2(-5, 3)
+texture = SubResource("CompressedTexture2D_vl5oj")
+centered = false
+region_enabled = true
+region_rect = Rect2(96, 112, 16, 16)
+
+[node name="Bottle4" type="Sprite2D" parent="World/Shelf/Bottles" unique_id=83359500]
+position = Vector2(-12, 2)
+texture = SubResource("CompressedTexture2D_vl5oj")
+centered = false
+region_enabled = true
+region_rect = Rect2(112, 96, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Shelf" unique_id=1997203930]
+visible = false
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_r4ttc")
+
+[node name="Keg1" type="StaticBody2D" parent="World" unique_id=1887881930]
+position = Vector2(180, 64)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Keg1" unique_id=1232922210]
+texture = SubResource("CompressedTexture2D_t1ea6")
+region_enabled = true
+region_rect = Rect2(0, 224, 16, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Keg1" unique_id=325307417]
+visible = false
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_sn8xv")
+
+[node name="Keg2" type="StaticBody2D" parent="World" unique_id=936424789]
+position = Vector2(131, 63)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Keg2" unique_id=2022553022]
+position = Vector2(0, -1)
+texture = SubResource("CompressedTexture2D_oj0x3")
+region_enabled = true
+region_rect = Rect2(64, 224, 16, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Keg2" unique_id=40726419]
+visible = false
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_0tslu")
+
+[node name="Keg3" type="StaticBody2D" parent="World" unique_id=1308767112]
+position = Vector2(196, 63)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Keg3" unique_id=683678734]
+position = Vector2(0, -1)
+texture = SubResource("CompressedTexture2D_oj0x3")
+region_enabled = true
+region_rect = Rect2(64, 224, 16, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Keg3" unique_id=1776231780]
+visible = false
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_0tslu")
+
+[node name="WestPlant" type="StaticBody2D" parent="World" unique_id=1593756967]
+position = Vector2(80, 62)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/WestPlant" unique_id=637586222]
+position = Vector2(0, -8)
+texture = ExtResource("inn_plants")
+region_enabled = true
+region_rect = Rect2(48, 96, 16, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/WestPlant" unique_id=36001846]
+visible = false
+position = Vector2(0, 2.5)
+shape = SubResource("PlantPot")
+
+[node name="EastPlant" type="StaticBody2D" parent="World" unique_id=825812622]
+position = Vector2(239, 86)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/EastPlant" unique_id=93637213]
+position = Vector2(0, -9)
+texture = ExtResource("inn_plants")
+region_enabled = true
+region_rect = Rect2(140, 0, 24, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/EastPlant" unique_id=1635608209]
+visible = false
+shape = SubResource("PlantPot")
+
+[node name="Jukebox" type="StaticBody2D" parent="World" unique_id=1046500211]
+position = Vector2(272, 61)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Jukebox" unique_id=2086269667]
+position = Vector2(0, -3)
+texture = ExtResource("14_oj0x3")
+region_rect = Rect2(64, 400, 32, 48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Jukebox" unique_id=1683404415]
+visible = false
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_rqplm")
+
+[node name="Interaction" parent="World/Jukebox" unique_id=873681175 instance=ExtResource("dialogue")]
+visible = false
+position = Vector2(0, 7)
+script = ExtResource("music_toggle")
+device_name = "jukebox"
+music_start_delay = 0.5
+
+[node name="Music" type="AudioStreamPlayer2D" parent="World/Jukebox/Interaction" unique_id=1895160111]
+position = Vector2(0, -12)
+stream = ExtResource("17_rqplm")
+volume_db = 16.0
+max_distance = 360.0
+
+[node name="ButtonClick" type="AudioStreamPlayer2D" parent="World/Jukebox/Interaction/Music" unique_id=2005427750]
+stream = ExtResource("button_click")
+volume_db = -8.0
+
+[node name="Table1" type="StaticBody2D" parent="World" unique_id=1646703115]
+position = Vector2(75, 161)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Table1" unique_id=1614113861]
+texture = SubResource("CompressedTexture2D_8v3i5")
+region_enabled = true
+region_rect = Rect2(8, 88, 48, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Table1" unique_id=1535505805]
+visible = false
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_e2a7j")
+
+[node name="Mug" type="Sprite2D" parent="World/Table1" unique_id=266033571]
+position = Vector2(0, -11)
+texture = ExtResource("8_r4ttc")
+region_enabled = true
+region_rect = Rect2(80, 112, 16, 16)
+
+[node name="Mug2" type="Sprite2D" parent="World/Table1" unique_id=1463109929]
+position = Vector2(14, 2)
+texture = ExtResource("8_r4ttc")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(80, 112, 16, 16)
+
+[node name="Plate" type="Sprite2D" parent="World/Table1" unique_id=474991371]
+position = Vector2(-12, 0)
+texture = SubResource("CompressedTexture2D_hedv2")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(208, 32, 16, 16)
+
+[node name="Table2" type="StaticBody2D" parent="World" unique_id=794243159]
+position = Vector2(241, 171)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Table2" unique_id=1271838710]
+texture = SubResource("CompressedTexture2D_8v3i5")
+region_enabled = true
+region_rect = Rect2(8, 88, 48, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Table2" unique_id=684680389]
+visible = false
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_e2a7j")
+
+[node name="Mug" type="Sprite2D" parent="World/Table2" unique_id=2029410942]
+position = Vector2(11, -3)
+texture = ExtResource("8_r4ttc")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(80, 112, 16, 16)
+
+[node name="Plate" type="Sprite2D" parent="World/Table2" unique_id=1930945858]
+position = Vector2(-11, -8)
+texture = ExtResource("8_r4ttc")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(240, 16, 16, 16)
+
+[node name="Table3" type="StaticBody2D" parent="World" unique_id=824435121]
+position = Vector2(93, 204)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Table3" unique_id=1341300247]
+texture = SubResource("CompressedTexture2D_8v3i5")
+region_enabled = true
+region_rect = Rect2(72, 88, 32, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Table3" unique_id=917813623]
+visible = false
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_8v3i5")
+
+[node name="Mug" type="Sprite2D" parent="World/Table3" unique_id=1942366283]
+position = Vector2(8, -11)
+texture = ExtResource("8_r4ttc")
+region_enabled = true
+region_rect = Rect2(80, 112, 16, 16)
+
+[node name="Mug2" type="Sprite2D" parent="World/Table3" unique_id=1881618734]
+position = Vector2(-7, 1)
+texture = ExtResource("8_r4ttc")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(80, 112, 16, 16)
+
+[node name="Table4" type="StaticBody2D" parent="World" unique_id=989175912]
+position = Vector2(161, 167)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Table4" unique_id=1832375326]
+texture = SubResource("CompressedTexture2D_8v3i5")
+region_enabled = true
+region_rect = Rect2(72, 88, 32, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Table4" unique_id=786092762]
+visible = false
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_8v3i5")
+
+[node name="Mug" type="Sprite2D" parent="World/Table4" unique_id=962332348]
+position = Vector2(8, 1)
+texture = ExtResource("8_r4ttc")
+region_enabled = true
+region_rect = Rect2(80, 112, 16, 16)
+
+[node name="Table5" type="StaticBody2D" parent="World" unique_id=170403573]
+position = Vector2(216, 214)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Table5" unique_id=1039931484]
+texture = SubResource("CompressedTexture2D_8v3i5")
+region_enabled = true
+region_rect = Rect2(72, 88, 32, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Table5" unique_id=374263511]
+visible = false
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_8v3i5")
+
+[node name="Mug" type="Sprite2D" parent="World/Table5" unique_id=752357664]
+position = Vector2(-7, 0)
+texture = ExtResource("8_r4ttc")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(80, 112, 16, 16)
+
+[node name="Plate" type="Sprite2D" parent="World/Table5" unique_id=1575906984]
+position = Vector2(7, -4)
+texture = ExtResource("8_r4ttc")
+region_enabled = true
+region_rect = Rect2(224, 32, 16, 16)
+
+[node name="Chair1" type="StaticBody2D" parent="World" unique_id=1661733640]
+position = Vector2(64, 142)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Chair1" unique_id=359242303]
+texture = ExtResource("9_oj0x3")
+region_enabled = true
+region_rect = Rect2(144, 40, 16, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Chair1" unique_id=26778768]
+visible = false
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_a6o5w")
+
+[node name="Chair2" type="StaticBody2D" parent="World" unique_id=887830305]
+position = Vector2(86, 142)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Chair2" unique_id=235031696]
+texture = ExtResource("9_oj0x3")
+region_enabled = true
+region_rect = Rect2(144, 40, 16, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Chair2" unique_id=1508863984]
+visible = false
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_a6o5w")
+
+[node name="Chair3" type="StaticBody2D" parent="World" unique_id=1980683736]
+position = Vector2(230, 152)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Chair3" unique_id=387933141]
+texture = ExtResource("9_oj0x3")
+region_enabled = true
+region_rect = Rect2(144, 40, 16, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Chair3" unique_id=1900895916]
+visible = false
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_a6o5w")
+
+[node name="Chair4" type="StaticBody2D" parent="World" unique_id=1179847359]
+position = Vector2(252, 152)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Chair4" unique_id=955972620]
+texture = ExtResource("9_oj0x3")
+region_enabled = true
+region_rect = Rect2(144, 40, 16, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Chair4" unique_id=420282702]
+visible = false
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_a6o5w")
+
+[node name="Chair5" type="StaticBody2D" parent="World" unique_id=1759468614]
+position = Vector2(64, 172)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Chair5" unique_id=1999386218]
+texture = ExtResource("9_oj0x3")
+region_enabled = true
+region_rect = Rect2(160, 40, 16, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Chair5" unique_id=918337782]
+visible = false
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_a6o5w")
+
+[node name="Chair6" type="StaticBody2D" parent="World" unique_id=1329677]
+position = Vector2(86, 172)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Chair6" unique_id=998755420]
+texture = ExtResource("9_oj0x3")
+region_enabled = true
+region_rect = Rect2(160, 40, 16, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Chair6" unique_id=760657963]
+visible = false
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_a6o5w")
+
+[node name="Chair7" type="StaticBody2D" parent="World" unique_id=154005700]
+position = Vector2(230, 182)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Chair7" unique_id=1756086685]
+texture = ExtResource("9_oj0x3")
+region_enabled = true
+region_rect = Rect2(160, 40, 16, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Chair7" unique_id=613097267]
+visible = false
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_a6o5w")
+
+[node name="Chair8" type="StaticBody2D" parent="World" unique_id=1950636982]
+position = Vector2(252, 182)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Chair8" unique_id=297938301]
+texture = ExtResource("9_oj0x3")
+region_enabled = true
+region_rect = Rect2(160, 40, 16, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Chair8" unique_id=1982114631]
+visible = false
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_a6o5w")
+
+[node name="Chair9" type="StaticBody2D" parent="World" unique_id=67058347]
+position = Vector2(77, 201)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Chair9" unique_id=1190159712]
+texture = SubResource("CompressedTexture2D_lrkqe")
+region_enabled = true
+region_rect = Rect2(128, 40, 16, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Chair9" unique_id=626533697]
+visible = false
+position = Vector2(-1, 4)
+shape = SubResource("RectangleShape2D_lrkqe")
+
+[node name="Chair10" type="StaticBody2D" parent="World" unique_id=1428097965]
+position = Vector2(117, 201)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Chair10" unique_id=1940353393]
+position = Vector2(-8, 0)
+texture = SubResource("CompressedTexture2D_lrkqe")
+region_enabled = true
+region_rect = Rect2(176, 40, 16, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Chair10" unique_id=946841456]
+visible = false
+position = Vector2(-1, 4)
+shape = SubResource("RectangleShape2D_lrkqe")
+
+[node name="Chair11" type="StaticBody2D" parent="World" unique_id=874649851]
+position = Vector2(145, 164)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Chair11" unique_id=1336873153]
+texture = SubResource("CompressedTexture2D_lrkqe")
+region_enabled = true
+region_rect = Rect2(128, 40, 16, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Chair11" unique_id=744422153]
+visible = false
+position = Vector2(-1, 4)
+shape = SubResource("RectangleShape2D_lrkqe")
+
+[node name="Chair12" type="StaticBody2D" parent="World" unique_id=144520033]
+position = Vector2(185, 164)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Chair12" unique_id=2043769835]
+position = Vector2(-8, 0)
+texture = SubResource("CompressedTexture2D_lrkqe")
+region_enabled = true
+region_rect = Rect2(176, 40, 16, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Chair12" unique_id=1521577233]
+visible = false
+position = Vector2(-1, 4)
+shape = SubResource("RectangleShape2D_lrkqe")
+
+[node name="Chair13" type="StaticBody2D" parent="World" unique_id=1533526850]
+position = Vector2(200, 211)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Chair13" unique_id=301061487]
+texture = SubResource("CompressedTexture2D_lrkqe")
+region_enabled = true
+region_rect = Rect2(128, 40, 16, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Chair13" unique_id=2143613629]
+visible = false
+position = Vector2(-1, 4)
+shape = SubResource("RectangleShape2D_lrkqe")
+
+[node name="Chair14" type="StaticBody2D" parent="World" unique_id=1356732077]
+position = Vector2(240, 211)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Chair14" unique_id=1797752758]
+position = Vector2(-8, 0)
+texture = SubResource("CompressedTexture2D_lrkqe")
+region_enabled = true
+region_rect = Rect2(176, 40, 16, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Chair14" unique_id=990732797]
+visible = false
+position = Vector2(-1, 4)
+shape = SubResource("RectangleShape2D_lrkqe")
+
+[node name="StairsUp" parent="World" unique_id=1363867180 instance=ExtResource("dialogue")]
+unique_name_in_owner = true
+position = Vector2(49, 50)
+script = ExtResource("portal")
+interaction_prompt = "Go upstairs"
+
+[node name="Exit" parent="World" unique_id=1061109739 instance=ExtResource("dialogue")]
+unique_name_in_owner = true
+position = Vector2(160, 224)
+script = ExtResource("portal")
+interaction_prompt = "Leave inn"
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Exit" unique_id=1512319965]
+z_index = 1
+position = Vector2(0, -4)
+texture = ExtResource("door")
+
+[node name="Player" parent="World" unique_id=2010155409 instance=ExtResource("player")]
+unique_name_in_owner = true
+position = Vector2(160, 202)
+metadata/_edit_lock_ = true
+
+[node name="EntranceSpawn" type="Marker2D" parent="." unique_id=2113738924]
+unique_name_in_owner = true
+position = Vector2(160, 217)
+
+[node name="StairSpawn" type="Marker2D" parent="." unique_id=772208900]
+unique_name_in_owner = true
+position = Vector2(49, 65)
+
+[node name="SolidWalls" type="StaticBody2D" parent="." unique_id=1683020848]
+visible = false
+
+[node name="North" type="CollisionShape2D" parent="SolidWalls" unique_id=1063663192]
+position = Vector2(160, 40)
+shape = SubResource("NorthWall")
+
+[node name="West" type="CollisionShape2D" parent="SolidWalls" unique_id=2012486233]
+position = Vector2(24, 120)
+shape = SubResource("WestWall")
+
+[node name="East" type="CollisionShape2D" parent="SolidWalls" unique_id=561124830]
+position = Vector2(296, 120)
+shape = SubResource("EastWall")
+
+[node name="South" type="CollisionShape2D" parent="SolidWalls" unique_id=1609422513]
+position = Vector2(160, 232)
+shape = SubResource("SouthWall")
+
+[node name="InnHUD" type="CanvasLayer" parent="." unique_id=806331634]
+layer = 3
+
+[node name="Objective" type="Label" parent="InnHUD" unique_id=1821788419]
+unique_name_in_owner = true
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 6.0
+offset_right = -8.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.45, 1)
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("font")
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 2

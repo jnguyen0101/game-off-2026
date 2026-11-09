@@ -1,11 +1,14 @@
 extends CharacterBody2D
 
+signal property_taken(target: Node, property: ShiftProperty)
+
 @export var move_speed: float = 70.0
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var interaction_prompt: Label = $ShiftHUD/InteractionPromptLayout/InteractionPrompt
 @onready var property_slot: PanelContainer = $ShiftHUD/PropertySlot
 @onready var carried_icon: TextureRect = $ShiftHUD/PropertySlot/Icon
+@onready var transfer_effect: Control = $ShiftHUD/PropertyTransfers
 @onready var feedback_label: Label = $ShiftHUD/Feedback
 @onready var property_panel: ScrollContainer = $ShiftHUD/PropertyPanel
 @onready var property_list: VBoxContainer = $ShiftHUD/PropertyPanel/PropertyList
@@ -14,11 +17,15 @@ extends CharacterBody2D
 
 var dialogue_active: bool = false
 var dialogue_source: Area2D = null
+var shift_audio_tween: Tween
 
 
 func _ready() -> void:
+	animated_sprite.frame_changed.connect(_on_walk_frame_changed)
 	carried_property = GameProgress.carried_property
 	dialogue_box.finished.connect(_on_dialogue_finished)
+	transfer_effect.state_changed.connect(update_interaction_prompts)
+	transfer_effect.transfer_finished.connect(_on_shift_transfer_finished)
 	update_interaction_prompts()
 
 
@@ -68,6 +75,7 @@ var carried_property: ShiftProperty = null
 var shift_mode_active: bool = false
 var feedback_until: int = 0
 var selection_target: ShiftableComponent = null
+var highlighted_target: ShiftableComponent = null
 var selected_property_index: int = 0
 var visible_properties: Array[ShiftProperty] = []
 
@@ -87,6 +95,8 @@ func _input(event: InputEvent) -> void:
 			var shiftable := get_nearby_shiftable()
 			sync_property_selection(shiftable)
 			if not visible_properties.is_empty():
+				if visible_properties.size() > 1:
+					$ShiftSelectSound.play()
 				selected_property_index = wrapi(selected_property_index + step, 0, visible_properties.size())
 				update_interaction_prompts()
 				get_viewport().set_input_as_handled()
@@ -159,6 +169,14 @@ func _physics_process(_delta: float) -> void:
 	update_animation(direction)
 	move_and_slide()
 
+
+func _on_walk_frame_changed() -> void:
+	if dialogue_active or not animated_sprite.animation.begins_with("walk_"):
+		return
+	# Each six-frame walk cycle has two foot contacts, including when mirrored.
+	if animated_sprite.frame == 1 or animated_sprite.frame == 4:
+		$Footsteps.play_step($CollisionShape2D.global_position)
+
 func update_animation(direction: Vector2) -> void:
 	if direction != Vector2.ZERO:
 		last_direction = direction
@@ -230,10 +248,12 @@ func _process(_delta: float) -> void:
 
 func update_interaction_prompts() -> void:
 	_update_interaction_prompt_contents()
+	carried_icon.visible = carried_property != null and not transfer_effect.is_arriving(carried_property)
+	_update_target_highlight()
 	interaction_prompt.visible = not dialogue_active and not interaction_prompt.text.is_empty()
 	if interaction_prompt.visible:
 		var screen_size := get_viewport_rect().size
-		var available_width := screen_size.x - 50.0
+		var available_width := screen_size.x - 84.0
 		var text_width := interaction_prompt.get_theme_font("font").get_string_size(
 			interaction_prompt.text, HORIZONTAL_ALIGNMENT_LEFT, -1,
 			interaction_prompt.get_theme_font_size("font_size")
@@ -241,6 +261,17 @@ func update_interaction_prompts() -> void:
 		# The bottom-aligned container positions the label after wrapping is resolved.
 		interaction_prompt.custom_minimum_size = Vector2(minf(text_width + 12.0, available_width), 0)
 
+
+
+func _update_target_highlight() -> void:
+	var target: ShiftableComponent = null
+	if shift_mode_active and GameProgress.shift_unlocked and not dialogue_active:
+		target = get_nearby_shiftable()
+	if is_instance_valid(highlighted_target) and highlighted_target != target:
+		highlighted_target.set_highlighted(false)
+	highlighted_target = target
+	if is_instance_valid(highlighted_target) and not highlighted_target.highlighted:
+		highlighted_target.set_highlighted(true)
 
 
 func _update_interaction_prompt_contents() -> void:
@@ -265,7 +296,7 @@ func _update_interaction_prompt_contents() -> void:
 	var dialogue_target := get_dialogue_target()
 	if not shift_mode_active and dialogue_target != null:
 		interaction_prompt.text = "[E] " + dialogue_target.interaction_prompt
-		if shiftable != null:
+		if shiftable != null and dialogue_target.get("show_shift_hint") != false:
 			interaction_prompt.text += " | Hold Shift to use Shift Vision"
 		return
 	if shiftable == null:
@@ -287,25 +318,69 @@ func _update_interaction_prompt_contents() -> void:
 		interaction_prompt.text = "%s has no property to steal" % nearby_object.name
 
 
-func show_shift_feedback(message: String) -> void:
+func show_shift_feedback(message: String, failed: bool = false) -> void:
 	feedback_label.text = message
+	feedback_label.add_theme_color_override("font_color", Color(1.0, 0.55, 0.45) if failed else Color(1.0, 0.85, 0.45))
 	feedback_until = Time.get_ticks_msec() + 2000
+	feedback_label.show()
+
+
+func reject_transfer(message: String) -> void:
+	show_shift_feedback(message, true)
+	transfer_effect.play_rejection()
 		
 func enter_shift_mode() -> void:
-	if not GameProgress.shift_unlocked or dialogue_active or nearby_object == null:
+	if shift_mode_active or not GameProgress.shift_unlocked or dialogue_active or nearby_object == null:
 		return
 
 	shift_mode_active = true
 	selection_target = null
 	Engine.time_scale = 0.25
 	shift_filter.set_active(true)
+	_set_shift_audio_muffled(true)
+	$ShiftEnterSound.play()
+	_update_target_highlight()
+
+
+func _on_shift_transfer_finished(taking: bool) -> void:
+	$ShiftLandSound.pitch_scale = 1.1 if taking else 1.0
+	$ShiftLandSound.play()
 
 func exit_shift_mode() -> void:
+	if shift_mode_active:
+		_set_shift_audio_muffled(false)
 	shift_mode_active = false
 	Engine.time_scale = 1.0
 	shift_filter.set_active(false)
+	_update_target_highlight()
 	
+func _set_shift_audio_muffled(muffled: bool) -> void:
+	var bus := AudioServer.get_bus_index(&"ShiftMuffled")
+	if bus < 0:
+		return
+	var filter := AudioServer.get_bus_effect(bus, 0) as AudioEffectLowPassFilter
+	if filter == null:
+		return
+	if shift_audio_tween != null:
+		shift_audio_tween.kill()
+	AudioServer.set_bus_effect_enabled(bus, 0, true)
+	shift_audio_tween = create_tween().set_ignore_time_scale(true)
+	shift_audio_tween.tween_property(filter, "cutoff_hz", 1200.0 if muffled else 20000.0, 0.18)
+	if not muffled:
+		shift_audio_tween.tween_callback(AudioServer.set_bus_effect_enabled.bind(bus, 0, false))
+
+
 func _exit_tree() -> void:
+	if shift_audio_tween != null:
+		shift_audio_tween.kill()
+		var bus := AudioServer.get_bus_index(&"ShiftMuffled")
+		if bus >= 0:
+			var filter := AudioServer.get_bus_effect(bus, 0) as AudioEffectLowPassFilter
+			if filter != null:
+				filter.cutoff_hz = 20000.0
+				AudioServer.set_bus_effect_enabled(bus, 0, false)
+	if is_instance_valid(highlighted_target):
+		highlighted_target.set_highlighted(false)
 	GameProgress.carried_property = carried_property
 	Engine.time_scale = 1.0
 
@@ -316,26 +391,33 @@ func get_nearby_shiftable() -> ShiftableComponent:
 	return nearby_object.get_node_or_null("ShiftableComponent")
 	
 func transfer_property() -> void:
-	if not GameProgress.shift_unlocked:
+	if not GameProgress.shift_unlocked or dialogue_active:
 		return
 	var shiftable := get_nearby_shiftable()
 	
 	if shiftable == null:
+		reject_transfer("Move closer to an object.")
 		return
 		
 	if carried_property == null:
 		sync_property_selection(shiftable)
 		if visible_properties.is_empty():
+			reject_transfer("No properties to take.")
 			return
 			
 		carried_property = visible_properties[selected_property_index]
 		shiftable.remove_property(carried_property)
 		
 		show_shift_feedback("%s picked up" % carried_property.property_name)
+		transfer_effect.play_transfer(carried_property, nearby_object, true)
+		property_taken.emit(nearby_object, carried_property)
 		
 	else:
 		if shiftable.has_property(carried_property):
+			reject_transfer("Already %s." % carried_property.property_name)
 			return
+		var placed_property := carried_property
 		shiftable.add_property(carried_property)
 		show_shift_feedback("Placed %s on %s" % [carried_property.property_name, nearby_object.name])
 		carried_property = null
+		transfer_effect.play_transfer(placed_property, nearby_object, false)

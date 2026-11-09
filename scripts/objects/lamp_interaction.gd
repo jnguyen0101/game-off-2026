@@ -17,6 +17,7 @@ func can_interact() -> bool:
 func interact(_player: Node) -> void:
 	is_on = not is_on
 	update_lamp()
+	$StringSound.play()
 
 
 func update_lamp() -> void:
